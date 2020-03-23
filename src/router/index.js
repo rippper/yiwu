@@ -4,6 +4,7 @@ import App from '../App.vue';
 
 const Home = r => require.ensure([], () => r(require('../page/home.vue')),
   'home');
+const Homes = r => require.ensure([], () => r(require('../page/Homes.vue'), 'homes'));
 const Login = r => require.ensure([], () => r(require('../page/login.vue')),
   'login');
 const Error = r => require.ensure([], () => r(require('../page/error.vue')),
@@ -143,6 +144,14 @@ const routes = [{
         meta: {
           title: '首页'
         },
+      },
+      {
+        name: 'homes',
+        path: '/homes',
+        component: Homes,
+        meta: {
+          title: '首页'
+        }
       },
       //课程中心
       {

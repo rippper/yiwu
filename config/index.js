@@ -4,7 +4,7 @@
 
 const path = require('path');
 // const target = 'http://test10.jy365.net';
-const target = 'http://192.168.1.27:8078';
+const target = 'http://192.168.1.27:8002/';
 // const target = 'http://www.tcstudy.gov.cn';
 // const target = 'http://192.168.1.22:4000';
 
@@ -61,7 +61,7 @@ module.exports = {
     },
     
     // Various Dev Server settings
-    host: '0.0.0.0', // can be overwritten by process.env.HOST
+    // host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

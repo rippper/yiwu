@@ -7,12 +7,12 @@ import './components/global';
 import {
   setStore,
   userAgent,
-  getMac,
+  // getMac,
 } from './plugins/utils';
 
 import routes from './router';
 import './service/filter';
-import {CheckLoginStatus} from './service/getData';
+// import {CheckLoginStatus} from './service/getData';
 import store from './store/';
 import './style/base.scss';
 
@@ -37,25 +37,25 @@ const changeTitle = (title) => {
   }
 };
 // 检查登录状态
-const getLoginStatus = (next) => {
-  let Mac = getMac();
-  let userInfo = store.state.userInfo;
-  CheckLoginStatus({
-    UserID: userInfo.UserID,
-    Mac
-  }).then(res => {
-    res = Number(res);
-    if (res !== 1) {
-      store.dispatch('saveUserInfo', {});
-      next({
-        path: '/login'
-      });
-    } else {
-      next();
-    }
-  });
-  // next();
-};
+// const getLoginStatus = (next) => {
+//   let Mac = getMac();
+//   let userInfo = store.state.userInfo;
+//   CheckLoginStatus({
+//     UserID: userInfo.UserID,
+//     Mac
+//   }).then(res => {
+//     res = Number(res);
+//     if (res !== 1) {
+//       store.dispatch('saveUserInfo', {});
+//       next({
+//         path: '/login'
+//       });
+//     } else {
+//       next();
+//     }
+//   });
+//   // next();
+// };
 
 const router = new VueRouter({
   routes
@@ -68,17 +68,17 @@ router.beforeEach((to, from, next) => {
   }
   let title = to.meta.title;
   changeTitle(title);
-  if (to.name !== 'login') {
-    if (JSON.stringify(store.state.userInfo) === '{}') {
-      next({
-        path: '/login'
-      });
-    } else {
-      getLoginStatus(next);
-    }
-  } else {
+  // if (to.name !== 'login') {
+  //   if (JSON.stringify(store.state.userInfo) === '{}') {
+  //     next({
+  //       path: '/login'
+  //     });
+  //   } else {
+  //     getLoginStatus(next);
+  //   }
+  // } else {
     next();
-  }
+  // }
 });
 router.afterEach((to, from) => {
   window.scrollTo(0, 0);
