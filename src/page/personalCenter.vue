@@ -67,7 +67,7 @@
       <mt-button v-if="userAgent.weixin" @click.native="exit" type="primary" size="large">解除微信绑定</mt-button>
       <mt-button v-else @click.native="exit" type="primary" size="large">安全退出</mt-button>
     </div>
-    <footer-fix selected="personalCenter"></footer-fix>
+    <bottomBar :selected="'4'"></bottomBar>
   </div>
 </template>
 <script>
@@ -76,6 +76,7 @@
   import {mapActions, mapState} from 'vuex';
   import {getMac} from '../plugins/utils';
   import {GetUserRaceRank, UpdateLoginStatus} from '../service/getData';
+  import { bottomBar } from '../components'
 
   Vue.component(Cell.name, Cell);
   Vue.component(Button.name, Button);
@@ -113,6 +114,9 @@
         }
       },
     },
+    components: {
+      bottomBar
+    }
   };
 </script>
 

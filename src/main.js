@@ -15,9 +15,12 @@ import './service/filter';
 // import {CheckLoginStatus} from './service/getData';
 import store from './store/';
 import './style/base.scss';
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+Vue.use(MintUI);
 
 //修改title
 const changeTitle = (title) => {

@@ -23,7 +23,7 @@
         <skeleton-item v-else v-for="i in 10" :key="i"/>
       </div>
     </nav-slide>
-    <footer-fix selected="courseCenter"/>
+    <bottomBar :selected="'2'"></bottomBar>
   </div>
 </template>
 <script>
@@ -37,6 +37,7 @@
     // singleUploadTimeNode
   } from '../service/getData'
   import { getStore, setStore } from "../plugins/utils";
+  import { bottomBar } from '../components'
 
   Vue.use(InfiniteScroll)
   Vue.component(MessageBox.name, MessageBox)
@@ -204,6 +205,9 @@
         //   setStore('singleProgress', singleStore)
         // }
       }
+    },
+    components: {
+      bottomBar
     },
     beforeRouteLeave(to, from, next) {
       MessageBox.close()

@@ -32,7 +32,7 @@
         </course-list>
       </section>
     </search>
-    <footer-fix></footer-fix>
+    <bottomBar></bottomBar>
   </div>
 </template>
 <script>
@@ -42,6 +42,7 @@
   import { getCourseInfoListBySearch } from '../service/getData'
   import { goBack } from '../service/mixins'
   import { getStore, setStore, removeStore, unique } from '../plugins/utils'
+  import { bottomBar } from '../components'
 
   Vue.use(InfiniteScroll)
   export default {
@@ -137,6 +138,9 @@
         this.searchHistory = []
       }
     },
+    components: {
+      bottomBar
+    }
   }
 </script>
 

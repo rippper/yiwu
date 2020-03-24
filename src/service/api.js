@@ -30,15 +30,7 @@ export const Api2 = {
    * */
   getCourseInfoListAll: {
     url: API_URL,
-    data: {
-      method: 'getCourseInfoListAll',
-      selecttype: 1,
-      channelId: '',
-      UserID: '',
-      Keyword: '',
-      Page: 1,
-      PageCount: 6
-    }
+    data: {}
   },
   /**
    * 通知公告

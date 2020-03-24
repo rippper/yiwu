@@ -94,7 +94,7 @@
         <i v-if="examType=='UnJoin'" class="webapp webapp-selected"></i>
       </p>
     </div>-->
-    <footer-fix selected="examCenter"></footer-fix>
+    <bottomBar></bottomBar>
   </div>
 </template>
 <script>
@@ -103,6 +103,7 @@
   import { goBack } from "../service/mixins";
   import { Indicator, InfiniteScroll, Navbar, TabContainer, TabContainerItem } from 'mint-ui'
   import { GetExamListAPI2 } from '../service/getData'
+  import { bottomBar } from '../components'
 
   Vue.use(InfiniteScroll)
   Vue.component(Navbar.name, Navbar)
@@ -235,6 +236,9 @@
         this.getExamList()
       }*/
     },
+    components: {
+      bottomBar
+    }
   }
 </script>
 

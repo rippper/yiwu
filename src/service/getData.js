@@ -48,7 +48,7 @@ export const GetLink = (data) => fetch.post(Api.GetLink.url, { ...Api.GetLink.da
 /**
  * 课程列表
  */
-export const GetCourseInfoList = (data) => fetch.post(Api.GetCourseInfoList.url, { ...Api.GetCourseInfoList.data,
+export const getCourseInfoListAll = (data) => fetch.get(Api.getCourseInfoListAll.url, { ...Api.getCourseInfoListAll.data,
   ...data
 });
 
@@ -62,9 +62,9 @@ export const WeekCourse = (data) => fetch.post(Api.WeekCourse.url, { ...Api.Week
 /**
  * 课程分类
  */
-export const GetChannelInfoList = (data) => fetch.post(Api.GetChannelInfoList.url, { ...Api.GetChannelInfoList.data,
-  ...data
-});
+// export const GetChannelInfoList = (data) => fetch.post(Api.GetChannelInfoList.url, { ...Api.GetChannelInfoList.data,
+//   ...data
+// });
 
 /**
  * 获取评论
@@ -515,7 +515,7 @@ export const getChannelInfoListHP = (data) => fetch.post(Api.getChannelInfoListH
 /**
  *  课程列表
  */
-export const getCourseInfoListAll = (data) => fetch.post(Api.getCourseInfoListAll.url, { ...Api.getCourseInfoListAll.data,
+export const getCourseInfoList = (data) => fetch.get(Api.getCourseInfoList.url, { ...Api.getCourseInfoList.data,
   ...data
 });
 /**
@@ -527,7 +527,7 @@ export const getNoticeInfoList = (data) => fetch.post(Api.getNoticeInfoList.url,
 /**
  *  课程频道
  */
-export const getChannelInfoList = (data) => fetch.post(Api.getChannelInfoList.url, { ...Api.getChannelInfoList.data,
+export const getChannelInfoList = (data) => fetch.get(Api.getChannelInfoList.url, { ...Api.getChannelInfoList.data,
   ...data
 });
 /**
@@ -539,7 +539,7 @@ export const getNoticeInfoContent = (data) => fetch.post(Api.getNoticeInfoConten
 /**
  *  课程搜索
  */
-export const getCourseInfoListBySearch = (data) => fetch.post(Api.getCourseInfoListBySearch.url, { ...Api.getCourseInfoListBySearch.data,
+export const getCourseInfoListBySearch = (data) => fetch.get(Api.getCourseInfoListBySearch.url, { ...Api.getCourseInfoListBySearch.data,
   ...data
 });
 /**
@@ -636,9 +636,9 @@ export const UpdateLoginStatus = (data) => fetch.post(Api.UpdateLoginStatus.url,
 /**
  *  推荐课程
  */
-export const getCourseInfoList = (data) => fetch.post(Api.getCourseInfoList.url, { ...Api.getCourseInfoList.data,
-  ...data
-});
+// export const getCourseInfoList = (data) => fetch.post(Api.getCourseInfoList.url, { ...Api.getCourseInfoList.data,
+//   ...data
+// });
 /**
  *  修改密码
  */

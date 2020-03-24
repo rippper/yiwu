@@ -19,14 +19,17 @@
         </div>
       </router-link>
     </div>
-    <footer-fix selected="examGuide"></footer-fix>
+    <bottomBar :selected="'3'"></bottomBar>
   </div>
 </template>
 <script>
 import { goBack } from "../service/mixins";
-
+import { bottomBar } from '../components'
 export default {
-  mixins: [goBack]
+  mixins: [goBack],
+  components: {
+    bottomBar
+  }
 };
 </script>
 <style lang="scss" rel="stylesheet/scss">
