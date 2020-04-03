@@ -6,7 +6,7 @@
       <img src="../assets/login_ico.png">
       <p></p>
     </div>-->
-    <img class="bg_img" src="../assets/login_bg.png" alt="">
+    <img class="bg_img" src="../assets/yw_loginbg.png" alt="">
     <div class="user_login">
       <form>
         <div class="form-group">
@@ -121,6 +121,7 @@
         /*if (this.userAgent.weixin) {
           res = await ValidateUser(loginParams)
         } else {*/
+        console.log(loginParams)
         res = await ValidateUser(loginParams);
         // }
         Indicator.close();

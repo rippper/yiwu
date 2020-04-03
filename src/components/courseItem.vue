@@ -2,7 +2,8 @@
   <div class="course_item" @click.stop="addCourse(item)">
     <div class="course_img">
       <a class="img">
-        <img v-lazy="item.Course_img">
+        <img v-lazy="item.Course_img" v-if="item.Course_img">
+        <img src="../assets/yw_nopic.png" alt v-else>
         <!--<error-img :src="item.CourseImg" :error-src="noCourse"></error-img>-->
       </a>
       <!--<img v-if="item.CourseType=='jyzxnews'" class="tip" src="../assets/jingpin.png" alt=""/>
@@ -13,7 +14,7 @@
       <div class="course_name">{{item.Course_Name}}</div>
       <div class="course_teacher">讲师：{{item.Teachername || "无"}}</div>
       <div class="course_bottom">
-        <span class="highlight">学时{{item.Credit_hour}}</span>
+        <span class="highlight">学分{{item.Credit_hour}}</span>
         <!--<span class="highlight">&nbsp;时长{{item.Duration}}</span>-->
         <span v-if="!myCourse" class="choose_status"
               :class="item.selectIdentifier=='已选'&&'course_selected'">{{item.selectIdentifier}}</span>

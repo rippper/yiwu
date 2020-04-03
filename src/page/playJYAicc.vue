@@ -2,7 +2,7 @@
 * JYAicc播放页
 */
 <template>
-  <div class="play_Jyaicc container_both">
+  <div class="play_Jyaicc container_top">
     <!--头部-->
     <header-fix :title="courseDetails.CourseName" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -75,7 +75,7 @@
         </header-fix>
       </add-notes>
     </transition>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -91,6 +91,7 @@
     RelatedCourse
   } from '../service/getData';
   import {goBack} from '../service/mixins';
+  // import { bottomBar } from '../components'
 
   Vue.component(Navbar.name, Navbar);
   Vue.component(TabItem.name, TabItem);
@@ -492,6 +493,9 @@
         });
       }
     },
+    // components: {
+    //   bottomBar
+    // },
     beforeRouteLeave(to, from, next) {
       clearInterval(this.timer);
       clearInterval(this.checkTimer);

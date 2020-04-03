@@ -55,7 +55,7 @@
   import {Button, Popup} from 'mint-ui';
   import Vue from 'vue';
   import {mapState} from 'vuex';
-  import {GetExamWrongTheme} from '../service/getData';
+  import { GetExamWrongTheme } from '../service/getData';
 
   Vue.component(Button.name, Button);
   Vue.component(Popup.name, Popup);
@@ -104,7 +104,11 @@
         this.$router.go(-1);
       },
       async getExamWrongTheme() {
-        let data = await GetExamWrongTheme({examPaperId: this.examPaperId});
+        console.log(this.examPaperId)
+        let data = await GetExamWrongTheme({
+          method: 'GetExamWrongTheme',
+          examPaperId: this.examPaperId
+        });
         this.exam = [];
         if (Array.isArray(data.ThemeString)) {
           this.exam = data.ThemeString;

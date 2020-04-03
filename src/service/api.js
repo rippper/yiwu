@@ -38,9 +38,9 @@ export const Api2 = {
   getNoticeInfoList: {
     url: API_URL,
     data: {
-      method: 'getNoticeInfoList',
-      Page: 1,
-      PageCount: 6
+      method: 'getNoticeInfoList'
+      // Page: 1,
+      // PageCount: 10
     }
   },
   /**
@@ -424,9 +424,9 @@ export const Api2 = {
     url: API_URL,
     data: {
       method: 'GetUserRaceInfo',
-      UserID: '',
-      portal: 1,
-      examId: ''
+      // UserID: '',
+      // portal: 1,
+      // examId: ''
     }
   },
   GetIsAllowExam: {
@@ -469,9 +469,7 @@ export const Api2 = {
   GetExamWrongTheme: {
     url: API_URL,
     data: {
-      method: 'GetExamWrongTheme',
-      examPageId: '',
-      portal: 1
+      // method: 'GetExamWrongTheme'
     }
   },
   // 在线测试排名接口
@@ -681,11 +679,11 @@ export const Api3 = {
   GetArticleInfoList: {
     url: API_URL + Platform + '/GetArticleInfoList',
     data: {
-      CategoryId: '',
-      Keyword: '',
-      CategoryCode: '',
-      Page: '1',
-      Rows: '10'
+      // CategoryId: '',
+      // Keyword: '',
+      // CategoryCode: '',
+      // Page: '1',
+      // Rows: '10'
     }
   },
   //文章详情

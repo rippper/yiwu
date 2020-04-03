@@ -4,8 +4,10 @@
 <template>
   <div class="exam_list">
     <div class="exam_item" v-for="item in examData"
-         :key="item.ExamID">
-      <div @click.stop="checkAttempt(item)">
+         :key="item.ExamID"
+         @click.self="checkAttempt(item)"
+    >
+      <div>
         <div class="exam_img">
           <img src="../assets/exam_ico.png" alt="">
         </div>
@@ -27,7 +29,7 @@
           </div>
         </div>
       </div>
-      <mt-button size="small" @click="linkToHistory(item.ExamID)">历史测试记录</mt-button>
+      <mt-button size="small" @click.stop="linkToHistory(item.ExamID)">历史测试记录</mt-button>
       <!-- <mt-button size="small" v-if="item.Reward == 0" @click.stop="getReward(item)">已申请奖励</mt-button>
       <mt-button size="small" v-else-if="item.Reward == 1" @click.stop="showReward(item)">奖励已发</mt-button>
       <mt-button type="primary"

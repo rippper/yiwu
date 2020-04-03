@@ -8,13 +8,14 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <div class="articleDet" v-html="messageContent"></div>
-    <footer-fix></footer-fix>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 <script>
   import { Indicator } from 'mint-ui'
   import { goBack } from '../service/mixins'
   import { GetNoticeInfoContent } from '../service/getData'
+  import { bottomBar } from '../components'
 
   export default {
     mixins: [goBack],
@@ -41,6 +42,9 @@
         this.messageContent = message[0]
       },
     },
+    components: {
+      bottomBar
+    }
   }
 </script>
 

@@ -69,6 +69,11 @@
         display: block;
         padding: toRem(21px) toRem(20px);
         font-size: 15px;
+        .mint-radio{
+          width: 100%;
+          height: 100%;
+          z-index: 10;
+        }
       }
       padding: 0 toRem(20px);
     }

@@ -62,9 +62,9 @@ export const WeekCourse = (data) => fetch.post(Api.WeekCourse.url, { ...Api.Week
 /**
  * 课程分类
  */
-// export const GetChannelInfoList = (data) => fetch.post(Api.GetChannelInfoList.url, { ...Api.GetChannelInfoList.data,
-//   ...data
-// });
+export const GetChannelInfoList = (data) => fetch.post(Api.GetChannelInfoList.url, { ...Api.GetChannelInfoList.data,
+  ...data
+});
 
 /**
  * 获取评论
@@ -374,7 +374,7 @@ export const SyncUserStudyData = (data) => fetch.post(Api.SyncUserStudyData.url,
 /**
  *  提交Mp4课程进度
  */
-export const UploadTimeNode = (data) => fetch.post(Api.UploadTimeNode.url, { ...Api.UploadTimeNode.data,
+export const UploadTimeNode = (data) => fetch.get(Api.UploadTimeNode.url, { ...Api.UploadTimeNode.data,
   ...data
 });
 
@@ -569,7 +569,7 @@ export const UpdateUserCourse = (data) => fetch.post(Api.UpdateUserCourse.url, {
 /**
  *  单视频提交进度
  */
-export const singleUploadTimeNode = (data) => fetch.post(Api.UploadTimeNode.url, { ...Api.UploadTimeNode.data,
+export const singleUploadTimeNode = (data) => fetch.get(Api.UploadTimeNode.url, { ...Api.UploadTimeNode.data,
   ...data
 });
 /**
@@ -679,9 +679,7 @@ export const GetExamAPI2 = (data) => fetch.post(Api.GetExam.url, { ...Api.GetExa
 /**
  *  错题列表
  */
-export const GetExamWrongTheme = (data) => fetch.post(Api.GetExamWrongTheme.url, { ...Api.GetExamWrongTheme.data,
-  ...data
-});
+export const GetExamWrongTheme = (data) => fetch.get(Api.GetExamWrongTheme.url, { ...Api.GetExamWrongTheme.data, ...data });
 /**
  *  考试提交
  */

@@ -42,13 +42,13 @@
         let data = await GetUserExamHistory({ UserID: this.userInfo.UserID, ExamID: this.examId })
         // data = JSON.parse(data);
         this.dataList = data.ExamPaperList
-        console.log(data)
+        // console.log(data)
       },
       toResult(id) {
         this.$router.push({ path: '/examResult', query: { examPaperId: id, examId: this.examId } })
       },
       goTestCenter() {
-        this.$router.push({ path: '/examCenter' })
+        this.$router.replace({ path: '/examCenter' })
       }
     }
   }

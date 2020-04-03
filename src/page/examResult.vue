@@ -95,6 +95,7 @@
           examId: this.examId,
           examPaperId: this.examPaperId
         });
+        console.log(data)
         this.result = data.ExamInfoList[0];
       },
       back() {

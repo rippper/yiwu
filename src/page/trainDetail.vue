@@ -70,7 +70,7 @@
         </header-fix>
       </date-time-picker>
     </transition>
-    <footer-fix></footer-fix>
+    <bottomBar></bottomBar>
   </div>
 </template>
 
@@ -80,6 +80,7 @@
   import { Indicator,Popup,Button,InfiniteScroll,MessageBox } from 'mint-ui'
   import { getUserTrainningClass,getUserTrainningClassKZ } from "../service/getData";
   import { formatDate } from "../plugins/utils";
+  import { bottomBar } from '../components'
 
   Vue.component(Popup.name, Popup);
   Vue.component(Button.name, Button);
@@ -185,6 +186,9 @@
         }
         this.loading = false
       },
+    },
+    components: {
+      bottomBar
     },
     beforeRouteLeave(to, from, next) {
       MessageBox.close()

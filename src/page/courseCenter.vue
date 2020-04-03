@@ -47,7 +47,7 @@
         courseTitle: '课程中心',
         showSlide: false,
         courseCategory: [],
-        channelId: 0,
+        channelId: this.$route.query.id || 0,
         courseData: [],
         loading: false,
         immediate: false,
@@ -66,9 +66,10 @@
       this.getChannelInfoList()
       this.getCourseList()
       this.uploadProgress()
+      // console.log(this.courseCategory)
     },
     mounted() {
-
+      
     },
     methods: {
       toggleNav() {
@@ -159,7 +160,7 @@
             let progressStack = aiccStore[key];
             for (let i = 0; i < progressStack.length; i++) {
               let params = progressStack[i]
-              console.log(params)
+              // console.log(params)
               try {
                 let data = await getSyncUserStudyData(params)
                 if (data == 'ok') {

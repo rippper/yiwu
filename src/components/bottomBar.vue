@@ -2,7 +2,7 @@
     <div class="bottombar">
         <ul>
             <li>
-                <router-link to="/homes">
+                <router-link to="/home">
                     <div>
                         <img src="../assets/yw_home.png" alt v-show="selected != '1'">
                         <img src="../assets/yw_homest.png" alt v-show="selected == '1'">

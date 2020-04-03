@@ -2,7 +2,7 @@
 * 修改密码
 */
 <template>
-  <div class="change_pwd container_both">
+  <div class="change_pwd container_top">
     <!--头部-->
     <header-fix title="修改密码" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -22,7 +22,7 @@
     <div class="submit_edit">
       <mt-button type="primary" size="large" @click.native="updatePwd">提交</mt-button>
     </div>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -32,6 +32,7 @@
   import {getMac} from '../plugins/utils';
   import {changeUserPassword, UpdateLoginStatus} from '../service/getData';
   import {goBack} from '../service/mixins';
+  // import { bottomBar } from '../components'
 
   Vue.component(Button.name, Button);
   export default {
@@ -98,6 +99,9 @@
         deep: true
       }
     },
+    // components: {
+    //   bottomBar
+    // },
     beforeRouteLeave(to, from, next) {
       MessageBox.close();
       next();
@@ -133,7 +137,7 @@
 
       .error {
         position: absolute;
-        right: toRem(-150px);
+        right: toRem(-225px);
         top: toRem(28px);
         color: $brand-error;
         transition: all 0.5s;

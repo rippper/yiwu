@@ -177,7 +177,7 @@
         </transition>
       </div>
     </transition>-->
-    <footer-fix></footer-fix>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 <script>
@@ -187,6 +187,7 @@
   import { goBack } from '../service/mixins'
   import { formatDate } from '../plugins/utils'
   import { GetUserInfo, UpdateUserInfo, GetGradeList, GetDegreeList, GetGroupList } from '../service/getData'
+  import { bottomBar } from '../components'
 
   Vue.component(Radio.name, Radio)
   Vue.component(Button.name, Button)
@@ -409,6 +410,9 @@
         }
       },
 
+    },
+    components: {
+      bottomBar
     },
     watch: {
       'infoSend.IdCard': {

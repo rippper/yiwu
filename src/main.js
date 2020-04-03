@@ -7,12 +7,12 @@ import './components/global';
 import {
   setStore,
   userAgent,
-  // getMac,
+  getMac,
 } from './plugins/utils';
 
 import routes from './router';
 import './service/filter';
-// import {CheckLoginStatus} from './service/getData';
+import {CheckLoginStatus} from './service/getData';
 import store from './store/';
 import './style/base.scss';
 import MintUI from 'mint-ui'
@@ -40,25 +40,25 @@ const changeTitle = (title) => {
   }
 };
 // 检查登录状态
-// const getLoginStatus = (next) => {
-//   let Mac = getMac();
-//   let userInfo = store.state.userInfo;
-//   CheckLoginStatus({
-//     UserID: userInfo.UserID,
-//     Mac
-//   }).then(res => {
-//     res = Number(res);
-//     if (res !== 1) {
-//       store.dispatch('saveUserInfo', {});
-//       next({
-//         path: '/login'
-//       });
-//     } else {
-//       next();
-//     }
-//   });
-//   // next();
-// };
+const getLoginStatus = (next) => {
+  let Mac = getMac();
+  let userInfo = store.state.userInfo;
+  CheckLoginStatus({
+    UserID: userInfo.UserID,
+    Mac
+  }).then(res => {
+    res = Number(res);
+    if (res !== 1) {
+      store.dispatch('saveUserInfo', {});
+      next({
+        path: '/login'
+      });
+    } else {
+      next();
+    }
+  });
+  // next();
+};
 
 const router = new VueRouter({
   routes
@@ -71,17 +71,17 @@ router.beforeEach((to, from, next) => {
   }
   let title = to.meta.title;
   changeTitle(title);
-  // if (to.name !== 'login') {
-  //   if (JSON.stringify(store.state.userInfo) === '{}') {
-  //     next({
-  //       path: '/login'
-  //     });
-  //   } else {
-  //     getLoginStatus(next);
-  //   }
-  // } else {
+  if (to.name !== 'login') {
+    if (JSON.stringify(store.state.userInfo) === '{}') {
+      next({
+        path: '/login'
+      });
+    } else {
+      getLoginStatus(next);
+    }
+  } else {
     next();
-  // }
+  }
 });
 router.afterEach((to, from) => {
   window.scrollTo(0, 0);
@@ -95,22 +95,28 @@ router.afterEach((to, from) => {
   let agent = userAgent();
   setStore('userAgent', agent);
 });
-if (process.env.NODE_ENV == 'development') {
-  new Vue({
+
+new Vue({
     router,
     store
-  }).$mount('#app');
-} else {
-  let agent = userAgent();
-  if (!(agent.mobile || agent.android || agent.iPhone || agent.iPad || agent.weixin || agent.qq)) {
-    new Vue({
-      template: `<h1 style="text-align: center;font-size: 26px;padding-top: 50px;">请在手机浏览器或微信中打开</h1>`
-    }).$mount('#app');
-  } else {
-    new Vue({
-      router,
-      store
-    }).$mount('#app');
-  }
-}
+}).$mount('#app');
+
+// if (process.env.NODE_ENV == 'development') {
+//   new Vue({
+//     router,
+//     store
+//   }).$mount('#app');
+// } else {
+//   let agent = userAgent();
+//   if (!(agent.mobile || agent.android || agent.iPhone || agent.iPad || agent.weixin || agent.qq)) {
+//     new Vue({
+//       template: `<h1 style="text-align: center;font-size: 26px;padding-top: 50px;">请在手机浏览器或微信中打开</h1>`
+//     }).$mount('#app');
+//   } else {
+//     new Vue({
+//       router,
+//       store
+//     }).$mount('#app');
+//   }
+// }
 export default router;

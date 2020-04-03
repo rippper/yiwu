@@ -13,7 +13,7 @@
       <span class="send_date">发布日期：{{messageData.SendTime}}</span>
     </div>
     <div class="articleDet" v-html="html"></div>
-    <footer-fix></footer-fix>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 <script>
@@ -21,6 +21,7 @@
   import { goBack } from '../service/mixins'
   import { HTMLDecode } from '../plugins/utils'
   import { getNoticeInfoContent } from '../service/getData'
+  import { bottomBar } from '../components'
 
   export default {
     mixins: [goBack],
@@ -49,6 +50,9 @@
         this.html = HTMLDecode(data)
       },
     },
+    components: {
+      bottomBar
+    }
   }
 </script>
 

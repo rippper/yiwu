@@ -1,5 +1,5 @@
 <template>
-  <div class="notification container_both">
+  <div class="notification container_top">
     <header-fix :title="noticeTitle" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <div slot="right" class="clearFix"></div>
@@ -25,7 +25,7 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -33,6 +33,7 @@ import { Cell, TabContainer, TabContainerItem } from "mint-ui";
 import Vue from "vue";
 import { goBack } from "../service/mixins";
 import { getNoticeInfoList } from "../service/getData";
+// import { bottomBar } from '../components'
 Vue.component(Cell.name, Cell);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
@@ -49,9 +50,12 @@ export default {
   },
   methods: {
     async getNoticeInfo() {
-      let res = await getNoticeInfoList();
+      let res = await getNoticeInfoList({
+        Page: 1,
+        PageCount: 6
+      });
       this.noticeData = res.NoticeInfoList;
-      console.log(this.noticeData);
+      // console.log(this.noticeData);
     },
     goArticleDetail(item) {
       this.$router.push({
@@ -60,6 +64,9 @@ export default {
       });
     }
   }
+  // components: {
+  //   bottomBar
+  // }
 };
 </script>
 <style lang="scss" rel="stylesheet/scss">

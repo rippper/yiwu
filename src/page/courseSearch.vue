@@ -2,7 +2,7 @@
 * 课程搜索
 */
 <template>
-  <div class="courseSearch container_both">
+  <div class="courseSearch container_top">
     <!--头部-->
     <header-fix title="搜索" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -32,7 +32,7 @@
         </course-list>
       </section>
     </search>
-    <bottomBar></bottomBar>
+    <!-- <bottomBar></bottomBar> -->
   </div>
 </template>
 <script>
@@ -42,7 +42,7 @@
   import { getCourseInfoListBySearch } from '../service/getData'
   import { goBack } from '../service/mixins'
   import { getStore, setStore, removeStore, unique } from '../plugins/utils'
-  import { bottomBar } from '../components'
+  // import { bottomBar } from '../components'
 
   Vue.use(InfiniteScroll)
   export default {
@@ -137,10 +137,10 @@
         removeStore('searchHistory')
         this.searchHistory = []
       }
-    },
-    components: {
-      bottomBar
     }
+    // components: {
+    //   bottomBar
+    // }
   }
 </script>
 

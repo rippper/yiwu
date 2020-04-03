@@ -2,7 +2,7 @@
 * 设置
 */
 <template>
-  <div class="setting container_both">
+  <div class="setting container_top">
     <!--头部-->
     <header-fix title="设置" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -18,17 +18,21 @@
         <i class="mint-cell-allow-right"></i>
       </p>
     </div>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
   import Vue from 'vue'
   import { Cell } from 'mint-ui'
   import { goBack } from '../service/mixins'
+  // import { bottomBar } from '../components'
 
   Vue.component(Cell.name, Cell)
   export default {
-    mixins: [goBack]
+    mixins: [goBack],
+    // component: {
+    //   bottomBar
+    // }
   }
 </script>
 

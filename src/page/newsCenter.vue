@@ -2,7 +2,7 @@
 * 新闻中心
 */
 <template>
-  <div class="newsCenter container_both">
+  <div class="newsCenter container_top">
     <header-fix :title="articleTitle" fixed>
       <div slot="left">
         <a @click="goBack">
@@ -41,7 +41,7 @@
         </section>
       </div>
     </nav-slide>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -52,6 +52,7 @@ import {
   getArticleChannelInfoList
 } from "../service/getData";
 import { goBack } from "../service/mixins";
+// import { bottomBar } from '../components'
 
 Vue.use(InfiniteScroll);
 
@@ -99,7 +100,7 @@ export default {
       // }).map((item, index) => {
       //   return item;
       // });
-      console.log(arr);
+      // console.log(arr);
       data.ChannelInfoList.filter(e => {
         return e.Parent_ID != 0;
       }).forEach((item, index) => {
@@ -118,7 +119,7 @@ export default {
       });
 
       this.articleCategory = arr;
-      console.log(this.articleCategory);
+      // console.log(this.articleCategory);
     },
     //文章列表
     async getArticleList() {
@@ -156,6 +157,9 @@ export default {
       this.getArticleList();
     }
   }
+  // components: {
+  //   bottomBar
+  // }
 };
 </script>
 

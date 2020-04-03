@@ -40,7 +40,7 @@
         </mt-tab-container-item>
       </mt-tab-container>
     </div>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -49,6 +49,7 @@
   import { Indicator, TabContainer, TabContainerItem, InfiniteScroll } from 'mint-ui'
   import { goBack } from '../service/mixins'
   import { getUserCourseInfo } from '../service/getData'
+  // import { bottomBar } from '../components'
 
   Vue.component(TabContainer.name, TabContainer)
   Vue.component(TabContainerItem.name, TabContainerItem)
@@ -151,20 +152,20 @@
         let targetTouches=event.targetTouches;
         let changeTouches=event.changeTouches;*/
         let pageX = event.targetTouches[0].pageX
-//        let pageY = event.targetTouches[0].pageY
+        // let pageY = event.targetTouches[0].pageY
         this.startX = pageX
-//        console.log("TouchStart" + pageX, pageY);
+        // console.log("TouchStart" + pageX, pageY);
       },
       doOnTouchMove (event) {
-//        let pageX = event.targetTouches[0].pageX
-//        let pageY = event.targetTouches[0].pageY
-//        console.log("TouchMove" + pageX, pageY);
+        // let pageX = event.targetTouches[0].pageX
+        // let pageY = event.targetTouches[0].pageY
+        // console.log("TouchMove" + pageX, pageY);
       },
       doOnTouchEnd (event) {
         let pageX = event.changedTouches[0].pageX
-//        let pageY = event.changedTouches[0].pageY
+        // let pageY = event.changedTouches[0].pageY
         this.endX = pageX
-//        console.log("TouchEnd" + pageX, pageY);
+        // console.log("TouchEnd" + pageX, pageY);
         //左滑
         if (this.endX < this.startX - 20) {
           this.tabType = '1'
@@ -174,7 +175,10 @@
           this.tabType = '0'
         }
       },
-    },
+    }
+    // components: {
+    //   bottomBar
+    // }
   }
 </script>
 

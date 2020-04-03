@@ -1,7 +1,7 @@
 <template>
   <div class="examGuide container_both">
     <header-fix title="考试中心" fixed>
-      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
+      <!-- <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i> -->
     </header-fix>
 
     <div class="guideList">
@@ -23,10 +23,10 @@
   </div>
 </template>
 <script>
-import { goBack } from "../service/mixins";
+// import { goBack } from "../service/mixins";
 import { bottomBar } from '../components'
 export default {
-  mixins: [goBack],
+  // mixins: [goBack],
   components: {
     bottomBar
   }

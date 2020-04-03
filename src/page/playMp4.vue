@@ -2,7 +2,7 @@
 * Mp4播放页
 */
 <template>
-  <div class="play_Mp4 container_both">
+  <div class="play_Mp4 container_top">
     <!--头部-->
     <header-fix :title="courseInfo.Course_Name" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
@@ -87,7 +87,7 @@
         <i class="webapp webapp-close"></i>
       </a>
     </div>-->
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -117,6 +117,7 @@ import {
   singleUploadTimeNode
 } from "../service/getData";
 import { goBack } from "../service/mixins";
+// import { bottomBar } from '../components'
 
 Vue.component(Navbar.name, Navbar);
 Vue.component(TabItem.name, TabItem);
@@ -200,6 +201,9 @@ export default {
   computed: {
     ...mapState(["courseInfo"])
   },
+  // components: {
+  //   bottomBar
+  // },
   watch: {
     playType: function(val, oldVal) {
       // console.log(val, oldVal)
@@ -249,7 +253,6 @@ export default {
           success: function(res) {
             var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
             t.GET_NETWORKTYPE(networkType);
-            console.log(networkType);
             if (networkType !== "wifi") {
               Toast({
                 message: "您正在使用2G/3G/4G网络，建议在WIFI环境观看",
@@ -326,18 +329,16 @@ export default {
         TimeNode,
         TotalTime: duration
       };
-      console.log(params)
       let store = getStore("singleProgress") || {};
       try {
         let data = await singleUploadTimeNode(params);
-        console.log(params)
         // let res = data.split(",");
         if (data.result) {
         } else {
           this.myPlayer.pause();
           this.progressStack.push(params);
-          console.log(params);
-          console.log(this.progressStack);
+          // console.log(params);
+          // console.log(this.progressStack);
           store[this.courseId] = this.progressStack;
           setStore("singleProgress", store);
           MessageBox.confirm("进度提交失败，是否再次提交？").then(
@@ -373,7 +374,7 @@ export default {
         for (let i = 0; i < this.progressStack.length; i++) {
           try {
             let params = this.progressStack[i];
-            console.log(params)
+            // console.log(params)
             let res = await singleUploadTimeNode(params);
             if (res == "ok") {
               this.progressStack.splice(i, 1);

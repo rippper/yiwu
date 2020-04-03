@@ -116,7 +116,7 @@
         // if (data.Type == 1) {
           if (RankType == '1') {
             this.studentData = data.RankInfoList;
-            console.log(this.studentData);
+            // console.log(this.studentData);
             if (data.RankInfoList.length == 0) {
               this.noDataBg1 = true
             }

@@ -61,7 +61,7 @@
     <div v-if="iframeSrc">
       <iframe :src="iframeSrc" frameborder="0"></iframe>
     </div>
-    <footer-fix></footer-fix>
+    <!-- <bottom-bar></bottom-bar> -->
   </div>
 </template>
 <script>
@@ -74,6 +74,7 @@ import {
   DeleteCollectionList,
   getArticleInfoContent
 } from "../service/getData";
+// import { bottomBar } from '../components'
 // ArticleDetail,
 //  import { getWXUrl } from '../plugins/utils'
 
@@ -233,6 +234,9 @@ export default {
       this.showShare = !this.showShare;
     }
   },
+  // components: {
+  //   bottomBar
+  // },
   beforeRouteLeave(to, from, next) {
     MessageBox.close();
     next();

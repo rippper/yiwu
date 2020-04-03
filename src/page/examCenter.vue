@@ -2,7 +2,7 @@
 * 在线测试
 */
 <template>
-  <div class="examCenter container_both">
+  <div class="examCenter container_top">
     <header-fix :title="examTitle" fixed>
       <!--<a slot="left" @click="toggleNav">
         <i class="webapp webapp-category"></i>
@@ -94,23 +94,21 @@
         <i v-if="examType=='UnJoin'" class="webapp webapp-selected"></i>
       </p>
     </div>-->
-    <bottomBar></bottomBar>
+    <!-- <bottomBar></bottomBar> -->
   </div>
 </template>
 <script>
   import Vue from 'vue'
   import { mapState } from 'vuex'
-  import { goBack } from "../service/mixins";
   import { Indicator, InfiniteScroll, Navbar, TabContainer, TabContainerItem } from 'mint-ui'
   import { GetExamListAPI2 } from '../service/getData'
-  import { bottomBar } from '../components'
+  // import { bottomBar } from '../components'
 
   Vue.use(InfiniteScroll)
   Vue.component(Navbar.name, Navbar)
   Vue.component(TabContainer.name, TabContainer)
   Vue.component(TabContainerItem.name, TabContainerItem)
   export default {
-    mixins: [goBack],
     data () {
       return {
         examTitle: '在线测试',
@@ -188,6 +186,9 @@
         this.loading = false
         this.finishPage += 1
       },*/
+      goBack () {
+        this.$router.push({ path: '/examGuide' })
+      },
       async getUnFinishExamList () {
         this.unFinishNoData = false
         this.unFinishNoDataBg = false
@@ -235,10 +236,10 @@
         this.examData = []
         this.getExamList()
       }*/
-    },
-    components: {
-      bottomBar
     }
+    // components: {
+    //   bottomBar
+    // }
   }
 </script>
 

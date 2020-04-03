@@ -13,7 +13,7 @@
         <history-course-list :history-data="earlyHistory" title="更早"></history-course-list>
       </div>
     </mt-loadmore>
-    <footer-fix></footer-fix>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 <script>
@@ -22,6 +22,7 @@
   import { goBack, toPlay } from '../service/mixins'
   import noCourse from '../assets/noCourse.png'
   import { GetHistoryCourse } from '../service/getData'
+  import { bottomBar } from '../components'
 
   Vue.component(Loadmore.name, Loadmore)
   export default {
@@ -63,6 +64,9 @@
         }
       },
     },
+    components: {
+      bottomBar
+    }
   }
 </script>
 

@@ -141,7 +141,7 @@ export default {
       this.countDown();
     },
     disagree() {
-      this.$router.go(-1);
+      this.$router.push({ path: '/examCenter' });
     },
     async getExam() {
       let data = await GetExamAPI2({ examId: this.examId });

@@ -13,16 +13,20 @@
         </li>
       </ul>
     </div>
-    <footer-fix></footer-fix>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 
 <script>
   import {goBack} from '../service/mixins';
+  import { bottomBar } from '../components'
 
   export default {
     name: 'pdfList',
     mixins: [goBack],
+    components: {
+      bottomBar
+    }
   };
 </script>
 

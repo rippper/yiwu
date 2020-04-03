@@ -27,6 +27,7 @@
     },
     methods: {
       goArticleDetail (item) {
+        // console.log(item.articleContent)
         this.$router.push({path: 'newsDetails', query: {ref: item.articleContent}})
       }
     }

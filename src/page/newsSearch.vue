@@ -15,7 +15,7 @@
         <news-list :news-data="articleData" :no-data-bg="noDataBg" :no-data="noData"></news-list>
       </section>
     </search>
-    <footer-fix></footer-fix>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 <script>
@@ -23,6 +23,7 @@
   import { Indicator, InfiniteScroll } from 'mint-ui'
   import { getArticleInfoList } from '../service/getData'
   import { goBack } from '../service/mixins'
+  import { bottomBar } from '../components'
 
   Vue.use(InfiniteScroll)
   export default {
@@ -78,6 +79,9 @@
         }
       }
     },
+    components: {
+      bottomBar
+    }
   }
 </script>
 
