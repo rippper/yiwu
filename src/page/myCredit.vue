@@ -23,7 +23,7 @@
     <div class="split"></div>
     <div class="cell_list_three">
       <!-- <mt-cell title="要求必修学分" :value="userInfo.NeedRequiredCredit"></mt-cell> -->
-      <mt-cell title="要求必修学分" :value="15"></mt-cell>
+      <mt-cell title="要求必修学分" :value="36"></mt-cell>
       <mt-cell title="要求总学分" :value="userInfo.NeedCredit"></mt-cell>
       <mt-cell title="考核结果" :value="userInfo.PassFlag?'通过':'未通过'"></mt-cell>
       <mt-cell title="您的学分排名" :value="userInfo.ScoreRank"></mt-cell>

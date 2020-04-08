@@ -5,7 +5,7 @@
   <div class="exam_list">
     <div class="exam_item" v-for="item in examData"
          :key="item.ExamID"
-         @click.self="checkAttempt(item)"
+         @click="checkAttempt(item)"
     >
       <div>
         <div class="exam_img">
@@ -44,7 +44,7 @@
 <script>
   import { mapState } from 'vuex'
   import { MessageBox, Toast } from 'mint-ui'
-  import { UpdateExamReward } from "../service/getData";
+  import { UpdateExamReward, CanExam } from "../service/getData";
 
   export default {
     data () {
@@ -75,10 +75,20 @@
         // let endTime = item.END_DATE
         // let dateEnd = +new Date(endTime)
         // let dateNow = +new Date()
-        MessageBox.confirm(`是否进入测试`).then(action => {
-          this.$router.push({path: '/exam', query: {id}})
+        let msg = await CanExam({
+          method: 'CanExam',
+          ExamID: id,
+          userid: this.userInfo.UserID
         })
-          
+        console.log(msg)
+        if (msg.result === 'false') {
+          MessageBox('提示', '课程未完成，请先完成课程。')
+        } else {
+          MessageBox.confirm(`是否进入测试`).then(action => {
+            this.$router.push({path: '/exam', query: {id}})
+          })
+        }
+
           // if (dateNow < dateEnd) {
           //   if (current < total) {
           //     let count = total - current

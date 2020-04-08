@@ -48,7 +48,7 @@ export const GetLink = (data) => fetch.post(Api.GetLink.url, { ...Api.GetLink.da
 /**
  * 课程列表
  */
-export const getCourseInfoListAll = (data) => fetch.get(Api.getCourseInfoListAll.url, { ...Api.getCourseInfoListAll.data,
+export const getCourseInfoListAll = (data) => fetch.post(Api.getCourseInfoListAll.url, { ...Api.getCourseInfoListAll.data,
   ...data
 });
 
@@ -83,7 +83,7 @@ export const GetExamType = (data) => fetch.post(Api.GetExamType.url, { ...Api.Ge
 /**
  * 考试列表
  */
-export const GetExamList = (data) => fetch.post(Api.GetExamList.url, { ...Api.GetExamList.data,
+export const GetExamList = (data) => fetch.get(Api.GetExamList.url, { ...Api.GetExamList.data,
   ...data
 });
 
@@ -660,7 +660,7 @@ export const GetUserHistory = (data) => fetch.post(Api.GetUserHistory.url, { ...
 /**
  *  考试列表
  */
-export const GetExamListAPI2 = (data) => fetch.post(Api.GetExamList.url, { ...Api.GetExamList.data,
+export const GetExamListAPI2 = (data) => fetch.get(Api.GetExamList.url, { ...Api.GetExamList.data,
   ...data
 });
 /**
@@ -718,6 +718,13 @@ export const GetIsAllowExam = (data) => fetch.post(Api.GetIsAllowExam.url, {
   ...Api.GetIsAllowExam.data,
   ...data
 });
+/**
+ * 用户能否考试
+ */
+export const CanExam = data => fetch.post(Api.CanExam.url, {
+  ...Api.CanExam.data,
+  ...data
+}) 
 /**
  * 获取测试历史记录
  */

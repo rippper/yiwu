@@ -4,8 +4,8 @@
 
 const path = require('path');
 // const target = 'http://test10.jy365.net';
-const target = 'http://192.168.1.27:8002/'
-// const target = 'http://122.226.76.27:80/';
+// const target = 'http://192.168.1.27:8002/'
+const target = 'http://122.226.76.27:80/';
 // const productTarget = 'http://gbjy.yw.gov.cn';
 // const target = 'http://www.tcstudy.gov.cn';
 // const target = 'http://192.168.1.22:4000';

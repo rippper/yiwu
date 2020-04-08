@@ -8,7 +8,7 @@
       <div class="my_info">
         <h4>{{userInfo.Username}}</h4>
         <p>
-          学时：{{userInfo.TotalCredit}}
+          学分：{{userInfo.TotalCredit}}
           <span class="shuxian">|</span>
           排行：{{userInfo.ScoreRank}}
           <!--<span class="shuxian">|</span>

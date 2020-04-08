@@ -194,10 +194,10 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
                                                     <img src="../assets/yw_watch.png" alt>
                                                     <span v-text="item.ViewCount"></span>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </a>
                                     </li>
@@ -236,10 +236,10 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
                                                     <img src="../assets/yw_watch.png" alt>
                                                     <span v-text="item.ViewCount"></span>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </a>
                                     </li>
@@ -278,10 +278,10 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
                                                     <img src="../assets/yw_watch.png" alt>
                                                     <span v-text="item.ViewCount"></span>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </a>
                                     </li>
@@ -320,10 +320,10 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
                                                     <img src="../assets/yw_watch.png" alt>
                                                     <span v-text="item.ViewCount"></span>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </a>
                                     </li>
@@ -524,7 +524,7 @@ export default {
         width: 100%;
         max-width: 10rem;
         height: toRem(92px);
-        background: #b20012;
+        background: $brand-primary;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -804,11 +804,11 @@ export default {
                         font-weight: bold;
                     }
                     .h_ct_active{
-                        color: #b20012;
+                        color: $brand-primary;
                     }
                 }
                 .is-selected{
-                    border-bottom: 0.08rem solid #b20012;
+                    border-bottom: 0.08rem solid $brand-primary;
                 }
             }
             .h_ct_ctl_courselist{

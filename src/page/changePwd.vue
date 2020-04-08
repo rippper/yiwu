@@ -65,18 +65,28 @@
         } else if (!this.isPassConfirm) {
           Toast({message: '两次输入新密码不一致', position: 'bottom'});
         } else {
+          let checkType = this.checkpasswords(this.sendData.newPwd)
+          if (!checkType) {
+            MessageBox('提示', '密码安全性太低！(至少8-16个字符，至少1个大写字母，1个小写字母和1个数字，其他可以是任意字符)')
+            return false
+          }
           this.sendData.UserID = this.userInfo.UserID;
           let data = await changeUserPassword(this.sendData);
-          if (data.Result == '修改成功') {
-            Toast({message: '修改成功,请重新登陆', position: 'bottom'});
+          if (data.Result == '1') {
+            Toast({message: '修改成功,请重新登录', position: 'bottom'});
             let Mac = getMac();
             await UpdateLoginStatus({UserID: this.userInfo.UserID, Mac});
             this.saveUserInfo({});
             this.$router.push('/login');
           } else {
-            MessageBox('警告', data.Result);
+            MessageBox('警告', '密码修改失败，请确认旧密码是否输入正确。');
           }
         }
+      },
+      checkpasswords (password) {
+        let reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/;
+        let result = reg.test(password)
+        return result
       }
     },
     watch: {

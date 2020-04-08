@@ -3,7 +3,7 @@
     <div class="checkList" v-for="(option,index) in options" :key="index"
          :class="isInArray(option.ThemeItemFlag)&&'checklist_checked'">
       <label class="mint-checklist-label">
-        <span class="mint-checkbox">
+        <span class="mint-checkbox selectpart">
           <input
             class="mint-checkbox-input"
             type="checkbox"
@@ -78,6 +78,26 @@
         display: block;
         padding: toRem(21px) toRem(20px);
         font-size: 15px;
+        position: relative;
+        .mint-checkbox{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 15;
+        }
+        .selectpart{
+          width: 100%;
+          height: 100%;
+
+          input{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+          }
+        }
       }
       padding: 0 toRem(20px);
     }
@@ -87,7 +107,7 @@
       color: $brand-primary;
     }
     .label_title {
-      margin-left: toRem(50px);
+      margin-left: toRem(5px);
     }
   }
 </style>

@@ -1,20 +1,27 @@
 <template>
   <div class="mbRadio" @change="$emit('change', currentValue)">
-    <div class="radioList" v-for="(option,index) in options" :key="index"
-         :class="option.ThemeItemFlag == currentValue&&'radio_checked'">
+    <div 
+      class="radioList" 
+      v-for="(option,index) in options" 
+      :key="index"
+      :class="option.ThemeItemFlag == currentValue&&'radio_checked'"
+    >
       <label class="mint-radiolist-label">
-        <span class="mint-radio">
+        <span class="mint-radio selectpart">
           <input
             class="mint-radio-input"
             type="radio"
             v-model="currentValue"
             :disabled="isDisabled || option.disabled"
-            :value="option.ThemeItemFlag || option"/>
+            :value="option.ThemeItemFlag || option"
+          />
           <!--<span class="mint-radio-core"></span>-->
         </span>
-        <!--&nbsp;&nbsp;{{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}-->
         <span class="mint-radio-label" v-text="option.ThemeItemFlag+'.'"></span>
         <span class="mint-radio-label label_title" v-text="option.ThemeItemTitle"></span>
+
+        <!--&nbsp;&nbsp;{{option.ThemeItemFlag+'.'+option.ThemeItemTitle}}-->
+        
       </label>
     </div>
   </div>
@@ -41,6 +48,11 @@
         required: false,
         default: false
       }
+    },
+    methods: {
+      check (index) {
+        alert(index)
+      } 
     },
     watch: {
       value(val) {
@@ -69,11 +81,26 @@
         display: block;
         padding: toRem(21px) toRem(20px);
         font-size: 15px;
+        position: relative;
         .mint-radio{
           width: 100%;
           height: 100%;
-          z-index: 10;
         }
+        .selectpart{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 15;
+          input{
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+          }
+        }
+
       }
       padding: 0 toRem(20px);
     }
@@ -83,7 +110,7 @@
       color: $brand-primary;
     }
     .label_title {
-      margin-left: toRem(50px);
+      margin-left: toRem(5px);
     }
   }
 

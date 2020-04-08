@@ -12,7 +12,11 @@
     </div>
     <div class="course_desc">
       <div class="course_name">{{item.Course_Name}}</div>
-      <div class="course_teacher">讲师：{{item.Teachername || "无"}}</div>
+      <div class="course_lineTwo">
+        <div class="course_teacher">讲师：{{item.Teachername || "无"}}</div>
+        <div class="course_type mustselect" v-if="item.AUTO_REG === '1'">必修</div>
+        <div class="course_type" v-else>选修</div>
+      </div>
       <div class="course_bottom">
         <span class="highlight">学分{{item.Credit_hour}}</span>
         <!--<span class="highlight">&nbsp;时长{{item.Duration}}</span>-->
@@ -30,7 +34,7 @@
 <script>
   import { getStore, setStore } from "../plugins/utils";
   import { getSyncUserStudyData, singleUploadTimeNode } from "../service/getData";
-  import { Toast } from 'mint-ui'
+  import { Toast, MessageBox } from 'mint-ui'
 
   export default {
     data() {
@@ -70,7 +74,16 @@
     },
     methods: {
       addCourse(item) {
-        this.$emit('addCourse', item)
+        console.log(item)
+        let data = new Date(item.Course_CreateDate).getTime()
+        let limitdata = new Date('2020-01-01 00:00:00').getTime()
+        if (limitdata > data) {
+          MessageBox.alert('2020年之前的课程仅作为知识补充，完成后不再给予任何学分!', '提示').then(() => {
+            this.$emit('addCourse', item)
+          })
+        } else {
+          this.$emit('addCourse', item)
+        }
       },
       async uploadProgress(e) {
         e.stopPropagation();
@@ -167,6 +180,17 @@
       /*font-size: 14px;*/
       font-weight: 500;
       color: $color-text-base;
+    }
+    .course_lineTwo{
+      display: flex;
+      justify-content: space-between;
+      .course_type{
+        font-size: 0.35rem;
+        color: #0f0;
+      }
+      .mustselect{
+        color: #f00;
+      }
     }
     .course_teacher {
       color: $color-text-secondary;

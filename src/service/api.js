@@ -490,6 +490,17 @@ export const Api2 = {
       UserID: '',
       portal: 1
     }
+  },
+  // 能否考试
+  CanExam: {
+    url: API_URL,
+    data: {
+      /* 
+        method: 'CanExam'
+        ExamID: ''
+        userid: ''
+      */
+    }
   }
 };
 /*3.0接口*/

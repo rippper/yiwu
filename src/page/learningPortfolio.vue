@@ -6,9 +6,9 @@
     <header-fix title="学习档案" fixed>
       <span slot="left">
         <i class="webapp webapp-back" @click.stop="goBack"></i>
-        <a @click="toggleNav">
+        <!-- <a @click="toggleNav">
           <i class="webapp webapp-category"></i>
-        </a>
+        </a> -->
       </span>
 
       <div v-if="!showHistory" slot="right" class="clearFix">
@@ -110,8 +110,8 @@
         noData: false,
         noDataBg: false,
         selectedTime: {
-          startTime: formatDate(new Date('2018-1-1'), 'yyyy-MM-dd'),
-          endTime: formatDate(new Date('2018-12-31'), 'yyyy-MM-dd'),
+          startTime: formatDate(new Date('2020-01-01'), 'yyyy-MM-dd'),
+          endTime: formatDate(new Date('2020-12-31'), 'yyyy-MM-dd'),
         },
         showTimerPicker: false, //是否显示日期选择
         showModel: false,
@@ -144,8 +144,10 @@
       },
       /*日期选择完成*/
       pickerComplete () {
+        this.page = 0
+        this.learningData = []
         this.togglePicker()
-        this.getLearningData()
+        this.getLearningData(false)
       },
       async getLearningData (isHistory) {
         this.noData = false
@@ -155,9 +157,11 @@
         let params,data
         if (isHistory) {
           params = {Page: this.page, UserID: this.userInfo.UserID}
+          console.log(params)
           data = await GetUserHistory(params)
         } else {
           params = {Page: this.page, UserID: this.userInfo.UserID, ...this.selectedTime}
+          console.log(params)
           data = await GetUserStatistics(params)
         }
         this.learningAllData = data
@@ -166,12 +170,15 @@
         if (Array.isArray(data.CourseList)) {
           list = data.CourseList
         }
-        if (list.length == 0 && this.page > 1) {
+        console.log(list)
+        console.log(this.page)
+        if (list.length == 0 && this.page >= 1) {
           this.noData = true
           return
         }
-        if (list.length == 0 && this.page == 1) {
+        if (list.length == 0 && this.page == 0) {
           this.noDataBg = true
+          this.learningData = []
           return
         }
         this.learningData = this.learningData.concat(list)
