@@ -515,7 +515,7 @@ export const getChannelInfoListHP = (data) => fetch.post(Api.getChannelInfoListH
 /**
  *  课程列表
  */
-export const getCourseInfoList = (data) => fetch.get(Api.getCourseInfoList.url, { ...Api.getCourseInfoList.data,
+export const getCourseInfoList = (data) => fetch.post(Api.getCourseInfoList.url, { ...Api.getCourseInfoList.data,
   ...data
 });
 /**
@@ -527,7 +527,7 @@ export const getNoticeInfoList = (data) => fetch.post(Api.getNoticeInfoList.url,
 /**
  *  课程频道
  */
-export const getChannelInfoList = (data) => fetch.get(Api.getChannelInfoList.url, { ...Api.getChannelInfoList.data,
+export const getChannelInfoList = (data) => fetch.post(Api.getChannelInfoList.url, { ...Api.getChannelInfoList.data,
   ...data
 });
 /**
@@ -539,7 +539,7 @@ export const getNoticeInfoContent = (data) => fetch.post(Api.getNoticeInfoConten
 /**
  *  课程搜索
  */
-export const getCourseInfoListBySearch = (data) => fetch.get(Api.getCourseInfoListBySearch.url, { ...Api.getCourseInfoListBySearch.data,
+export const getCourseInfoListBySearch = (data) => fetch.post(Api.getCourseInfoListBySearch.url, { ...Api.getCourseInfoListBySearch.data,
   ...data
 });
 /**

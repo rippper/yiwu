@@ -265,7 +265,11 @@ export default {
   }
   iframe {
     width: 100%;
+    max-width: 10rem;
     height: 100vh;
+  }
+  img{
+    max-width: 10rem;
   }
 }
 

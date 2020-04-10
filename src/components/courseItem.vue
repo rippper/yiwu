@@ -74,7 +74,6 @@
     },
     methods: {
       addCourse(item) {
-        console.log(item)
         let data = new Date(item.Course_CreateDate).getTime()
         let limitdata = new Date('2020-01-01 00:00:00').getTime()
         if (limitdata > data) {

@@ -80,7 +80,6 @@
           ExamID: id,
           userid: this.userInfo.UserID
         })
-        console.log(msg)
         if (msg.result === 'false') {
           MessageBox('提示', '课程未完成，请先完成课程。')
         } else {

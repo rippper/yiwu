@@ -157,11 +157,9 @@
         let params,data
         if (isHistory) {
           params = {Page: this.page, UserID: this.userInfo.UserID}
-          console.log(params)
           data = await GetUserHistory(params)
         } else {
           params = {Page: this.page, UserID: this.userInfo.UserID, ...this.selectedTime}
-          console.log(params)
           data = await GetUserStatistics(params)
         }
         this.learningAllData = data
@@ -170,8 +168,6 @@
         if (Array.isArray(data.CourseList)) {
           list = data.CourseList
         }
-        console.log(list)
-        console.log(this.page)
         if (list.length == 0 && this.page >= 1) {
           this.noData = true
           return

@@ -47,7 +47,7 @@
         courseTitle: '课程中心',
         showSlide: false,
         courseCategory: [],
-        channelId: this.$route.query.id || 0,
+        channelId: 0,
         courseData: [],
         loading: false,
         immediate: false,
@@ -65,7 +65,7 @@
       this.courseTitle = this.$route.query.title || '课程中心'
       this.getChannelInfoList()
       this.getCourseList()
-      this.uploadProgress()
+      // this.uploadProgress()
       // console.log(this.courseCategory)
     },
     mounted() {

@@ -54,39 +54,9 @@
             <div class="h_ct_nav">
                 <ul>
                     <li>
-                        <router-link to="/rankList">
+                        <router-link :to="{ path: '/coursecenter', query: { id: 107, title: '心理课程' } }">
                             <div>
-                                <img src="../assets/yw_rank.png" alt>
-                            </div>
-                            <p>
-                                <span>排行榜</span>
-                            </p>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/newsCenter">
-                            <div>
-                                <img src="../assets/yw_zixun.png" alt>
-                            </div>
-                            <p>
-                                <span>资讯</span>
-                            </p>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/notification">
-                            <div>
-                                <img src="../assets/yw_tongzhi.png" alt>
-                            </div>
-                            <p>
-                                <span>通知</span>
-                            </p>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{ path: '/coursecenter', query: { id: 107 } }">
-                            <div>
-                                <img src="../assets/yw_kecheng.png" alt>
+                                <img src="../assets/yw_heartcourse.png" alt>
                             </div>
                             <p>
                                 <span>心理课程</span>
@@ -94,24 +64,44 @@
                         </router-link>
                     </li>
                     <li>
-                        <router-link to="/examCenter">
+                        <a href="javascript:;" @click="onBuild">
                             <div>
-                                <img src="../assets/yw_ceshi.png" alt>
+                                <img src="../assets/yw_heartexam.png" alt>
                             </div>
                             <p>
                                 <span>心理测试</span>
                             </p>
-                        </router-link>
+                        </a>
                     </li>
                     <li>
                         <a href="javascript:;" @click="linkToHeart">
                             <div>
-                                <img src="../assets/yw_rexian.png" alt>
+                                <img src="../assets/yw_heartline.png" alt>
                             </div>
                             <p>
                                 <span>心理热线</span>
                             </p>
                         </a>
+                    </li>
+                    <li>
+                        <router-link to="/notification">
+                            <div>
+                                <img src="../assets/yw_notices.png" alt>
+                            </div>
+                            <p>
+                                <span>通知公告</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/rankList">
+                            <div>
+                                <img src="../assets/yw_ranks.png" alt>
+                            </div>
+                            <p>
+                                <span>排行榜</span>
+                            </p>
+                        </router-link>
                     </li>
                 </ul>
             </div>
@@ -183,10 +173,10 @@
                                             <p class="h_ct_ctl_title" v-text="item.Course_Name"></p>
                                             <div class="h_ct_ctl_scoreadtype">
                                                 <div>
-                                                    学分：<span v-text="item.Score"></span>
+                                                    学分:<span v-text="item.Credit_hour"></span>
                                                 </div>
                                                 <div>
-                                                    类型：<span>视频</span>
+                                                    类型: <span>视频</span>
                                                 </div>
                                             </div>
                                             <div class="h_ct_ctl_selectadwatch">
@@ -194,16 +184,15 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
-                                                    <img src="../assets/yw_watch.png" alt>
-                                                    <span v-text="item.ViewCount"></span>
-                                                </div> -->
+                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                    <p>讲师: <span v-text="item.Teachername"></span></p>
+                                                </div>
                                             </div>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="h_ct_ctl_nomessage" v-show="sopportOnload == false && sopportList.length == 0">
-                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程。。。</span>
+                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程</span>
                                 </div>
                                 <div class="h_ct_ctl_onload" v-show="sopportOnload">
                                     <mt-spinner color="#b20017"></mt-spinner>
@@ -225,10 +214,10 @@
                                             <p class="h_ct_ctl_title" v-text="item.Course_Name"></p>
                                             <div class="h_ct_ctl_scoreadtype">
                                                 <div>
-                                                    学分：<span v-text="item.Score"></span>
+                                                    学分: <span v-text="item.Credit_hour"></span>
                                                 </div>
                                                 <div>
-                                                    类型：<span>视频</span>
+                                                    类型: <span>视频</span>
                                                 </div>
                                             </div>
                                             <div class="h_ct_ctl_selectadwatch">
@@ -236,16 +225,15 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
-                                                    <img src="../assets/yw_watch.png" alt>
-                                                    <span v-text="item.ViewCount"></span>
-                                                </div> -->
+                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                    <p>讲师: <span v-text="item.Teachername"></span></p>
+                                                </div>
                                             </div>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="h_ct_ctl_nomessage" v-show="legelOnload == false && legelList.length == 0">
-                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程。。。</span>
+                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程</span>
                                 </div>
                                 <div class="h_ct_ctl_onload" v-show="legelOnload">
                                     <mt-spinner color="#b20017"></mt-spinner>
@@ -267,10 +255,10 @@
                                             <p class="h_ct_ctl_title" v-text="item.Course_Name"></p>
                                             <div class="h_ct_ctl_scoreadtype">
                                                 <div>
-                                                    学分：<span v-text="item.Score"></span>
+                                                    学分: <span v-text="item.Credit_hour"></span>
                                                 </div>
                                                 <div>
-                                                    类型：<span>视频</span>
+                                                    类型: <span>视频</span>
                                                 </div>
                                             </div>
                                             <div class="h_ct_ctl_selectadwatch">
@@ -278,16 +266,15 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
-                                                    <img src="../assets/yw_watch.png" alt>
-                                                    <span v-text="item.ViewCount"></span>
-                                                </div> -->
+                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                    <p>讲师: <span v-text="item.Teachername"></span></p>
+                                                </div>
                                             </div>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="h_ct_ctl_nomessage" v-show="businessOnload == false && businessList.length == 0">
-                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程。。。</span>
+                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程</span>
                                 </div>
                                 <div class="h_ct_ctl_onload" v-show="businessOnload">
                                     <mt-spinner color="#b20017"></mt-spinner>
@@ -309,10 +296,10 @@
                                             <p class="h_ct_ctl_title" v-text="item.Course_Name"></p>
                                             <div class="h_ct_ctl_scoreadtype">
                                                 <div>
-                                                    学分：<span v-text="item.Score"></span>
+                                                    学分: <span v-text="item.Credit_hour"></span>
                                                 </div>
                                                 <div>
-                                                    类型：<span>视频</span>
+                                                    类型: <span>视频</span>
                                                 </div>
                                             </div>
                                             <div class="h_ct_ctl_selectadwatch">
@@ -320,16 +307,15 @@
                                                     <img src="../assets/yw_noselect.png" alt v-if="item.selectIdentifier == '未选'">
                                                     <img src="../assets/yw_select.png" alt v-else>
                                                 </div>
-                                                <!-- <div class="h_ct_ctl_selectadwatch_right">
-                                                    <img src="../assets/yw_watch.png" alt>
-                                                    <span v-text="item.ViewCount"></span>
-                                                </div> -->
+                                                <div class="h_ct_ctl_selectadwatch_right">
+                                                    <p>讲师: <span v-text="item.Teachername"></span></p>
+                                                </div>
                                             </div>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="h_ct_ctl_nomessage" v-show="cultureOnload == false && cultureList.length == 0">
-                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程。。。</span>
+                                    <img src="../assets/yw_error.png" alt> <span>暂时没有该类课程</span>
                                 </div>
                                 <div class="h_ct_ctl_onload" v-show="cultureOnload">
                                     <mt-spinner color="#b20017"></mt-spinner>
@@ -355,6 +341,7 @@ import {
 } from '../service/getData'
 import { toPlay } from '../service/mixins'
 import { mapState, mapActions } from 'vuex'
+import { MessageBox } from 'mint-ui'
 
 export default {
     mixins: [toPlay],
@@ -405,6 +392,9 @@ export default {
         linkToHeart () {
             this.$router.push({ path: '/newsDetails', query: { ref: this.heartList[0].articleContent } })
         },
+        onBuild () {
+            MessageBox('提示','正在建设中')
+        },
         async render () {
             const notice = await getNoticeInfoList({
                 Page: 1,
@@ -420,9 +410,9 @@ export default {
                 method: 'getArticleInfoList',
                 Channel_id: '69',
                 Page: 1,
-                PageCount: 3
+                PageCount: 4
             })  // 首页轮播图
-            console.log(bannerInfo)
+            // console.log(bannerInfo)
             if (bannerInfo.articleInfoList.length > 0) {
                 bannerInfo.articleInfoList.map(item => {
                     const date = new Date(item.Articlecreatedate)
@@ -442,8 +432,6 @@ export default {
             if (heart.totalCount != 0) {
                 this.heartList = heart.articleInfoList
             }
-
-            // console.log(heart)
             const hotpart = await getCourseInfoListAll({ 
                 method: 'getCourseInfoList',
                 channelId: '103',
@@ -495,8 +483,9 @@ export default {
             //method: 'getCourseInfoList',selecttype: 1,channelId: '',UserID: '',Keyword: '',Page: 1，PageCount: 4
         },
         async addCourse(item) {
+            // console.log(item)
             let res = { result: '1' }
-            if (item.IsSelect != '1') {
+            if (item.selectIdentifier == '未选') {
                 res = await UpdateUserCourse({ UserID: this.userInfo.UserID, CourseNumber: item.Course_Number })
             }
             if (res.result == 1) {
@@ -654,7 +643,7 @@ export default {
         .h_ct_imgpart{
             width: toRem(690px);
             height: toRem(360px);
-            margin: toRem(30px) auto 0;
+            margin: toRem(16px) auto 0;
             border-radius: toRem(15px);
             overflow: hidden;
             .mint-swipe{
@@ -711,31 +700,30 @@ export default {
         }
         .h_ct_nav{
             width: toRem(690px);
-            height: toRem(510px);
-            padding-top: toRem(30px);
+            height: toRem(210px);
+            padding-top: toRem(10px);
             margin: 0 auto;
             ul{
                 display: flex;
-                flex-wrap: wrap;
                 justify-content: space-between;
                 li{
-                    width: 30%;
-                    height: toRem(215px);
+                    width: toRem(121px);
+                    height: toRem(195px);
                     text-align: center;
                     a{
                         width: 1.6rem;
                         height: 100%;
-                        padding-top: toRem(30px);
+                        padding-top: toRem(10px);
                         text-align: center;
                         display: inline-block;
                         img{
-                            width: toRem(120px);
-                            height: toRem(119px);
+                            width: toRem(121px);
+                            height: toRem(121px);
                         }
                         p{
                             margin-top: toRem(15px);
                             font-size: 0.35rem;
-                            font-weight: 500;
+                            font-weight: bolder;
                         }
                     }
                 }
@@ -751,10 +739,12 @@ export default {
             .h_ct_left{
                 .h_ct_left_title{
                     font-weight: bold;
-                    font-size: 0.5rem;
+                    font-size: toRem(36px);
                 }
                 .h_ct_left_content{
-                    font-size: 0.35rem;
+                    margin-top: toRem(8px);
+                    font-size: toRem(22px);
+                    color: #999;
                 }
             }
             .h_ct_right{
@@ -804,6 +794,7 @@ export default {
                         font-weight: bold;
                     }
                     .h_ct_active{
+                        
                         color: $brand-primary;
                     }
                 }
@@ -815,25 +806,26 @@ export default {
                 width: 100%;
                 padding-bottom: toRem(118px);
                 background: #f2f4f6;
-                padding-top: toRem(29px);
+                padding-top: toRem(20px);
                 .h_ct_ctl_clinner{
-                    width: toRem(710px);
-                    height: toRem(1010px);
+                    width: toRem(688px);
+                    height: toRem(920px);
                     margin: 0 auto;
                     border-radius: toRem(15px);
                     background: #fff;
                     ul{
-                        padding: 0 toRem(20px);
+                        padding: toRem(10px) toRem(10px) toRem(10px);
                         display: flex;
                         flex-wrap: wrap;
                         li{
                             width: toRem(334px);
-                            height: toRem(488px);
+                            height: toRem(430px);
+                            padding: 0 toRem(10px);
+                            margin: toRem(10px) 0;
                             a{
                                 display: inline-block;
                                 width: 100%;
                                 height: 100%;
-                                padding-top: toRem(30px);
                                 text-align: center;
                             }
                             .h_ct_ctl_image{
@@ -846,10 +838,13 @@ export default {
 
                             .h_ct_ctl_title{
                                 width: toRem(314px);
+                                height: 1rem;
+                                line-height: 0.5rem;
                                 margin: toRem(25px) auto 0;
                                 text-align: left;
                                 font-size: 0.4rem;
                                 font-weight: bold;
+                                @include ellipsis_two(2);
                             }
                             .h_ct_ctl_scoreadtype{
                                 width: toRem(314px);
@@ -872,13 +867,7 @@ export default {
                                     }
                                 }
                                 .h_ct_ctl_selectadwatch_right{
-                                    img{
-                                        width: toRem(36px);
-                                        height: toRem(24px);
-                                        position: relative;
-                                        bottom: toRem(4px);
-                                    }
-                                    span{
+                                    p{
                                         font-size: 0.3rem;
                                         color: #a0a0a0;
                                     }

@@ -66,8 +66,8 @@ export default {
 <style lang="scss">
 @import "../style/mixin";
 .noticeBanner{
-    height: toRem(118px);
-    padding-top: toRem(50px);
+    height: toRem(84px);
+    padding-top: toRem(16px);
     .h_ct_noticebox{
         width: toRem(690px);
         height: toRem(68px);

@@ -15,8 +15,8 @@
           <span class="pull-right" v-if="!showHistory">学习进度：<span class="primary_color">{{item.browse_score}}%</span></span>
         </p>
         <p class="collect_date">
-          <span class="credit">获得学时：<span class="primary_color">{{item.credit_hour}}</span></span>
-          <span class="score">评论学时：<span class="primary_color">{{item.extra_credit}}</span></span>
+          <span class="credit">获得学分：<span class="primary_color">{{item.credit_hour}}</span></span>
+          <!-- <span class="score">评论学分：<span class="primary_color">{{item.extra_credit}}</span></span> -->
         </p>
         <p v-if="!showHistory" class="collect_date">
           <span class="status"
