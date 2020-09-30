@@ -11,7 +11,7 @@
                 </router-link>
             </li>
             <li>
-                <router-link to="/courseCenter">
+                <router-link to="/courseType">
                     <div>
                         <img src="../assets/yw_course.png" alt v-show="selected != '2'">
                         <img src="../assets/yw_coursest.png" alt v-show="selected == '2'">
@@ -20,21 +20,41 @@
                 </router-link>
             </li>
             <li>
+                <router-link to="/commitList">
+                    <div>
+                        <img src="../assets/yw_commitcenter.png" alt v-show="selected != '3'">
+                        <img src="../assets/yw_commitcenterst.png" alt v-show="selected == '3'">
+                    </div>
+                    <p><span :class="{ 'is_active': selected == '3'}">交流园地</span></p>
+                </router-link>
+            </li>
+            <li>
+                <!-- <router-link to="/liveList"> -->
+                <router-link to="/livelist">
+                    <div>
+                        <img src="../assets/yw_zhibo.png" alt v-show="selected != '4'">
+                        <img src="../assets/yw_zhibost.png" alt v-show="selected == '4'">
+                    </div>
+                    <p><span :class="{ 'is_active': selected == '4'}">直播</span></p>
+                </router-link>
+                <!-- </router-link> -->
+            </li>
+            <li>
                 <router-link to="/examGuide">
                     <div>
-                        <img src="../assets/yw_exam.png" alt v-show="selected != '3'">
-                        <img src="../assets/yw_examst.png" alt v-show="selected == '3'">
+                        <img src="../assets/yw_exam.png" alt v-show="selected != '5'">
+                        <img src="../assets/yw_examst.png" alt v-show="selected == '5'">
                     </div>
-                    <p><span :class="{ 'is_active': selected == '3'}">考试</span></p>
+                    <p><span :class="{ 'is_active': selected == '5'}">考试</span></p>
                 </router-link>
             </li>
             <li>
                 <router-link to="/personalCenter">
                     <div>
-                        <img src="../assets/yw_mine.png" alt v-show="selected != '4'">
-                        <img src="../assets/yw_minest.png" alt v-show="selected == '4'">
+                        <img src="../assets/yw_mine.png" alt v-show="selected != '6'">
+                        <img src="../assets/yw_minest.png" alt v-show="selected == '6'">
                     </div>
-                    <p><span :class="{ 'is_active': selected == '4'}">我的</span></p>
+                    <p><span :class="{ 'is_active': selected == '6'}">我的</span></p>
                 </router-link>
             </li>
         </ul>
@@ -42,12 +62,18 @@
 </template>
 
 <script>
+import { MessageBox } from 'mint-ui';
 export default {
     name: 'bottombar',
     props: {
         selected: {
             type: String,
             default: '0'
+        }
+    },
+    methods: {
+        onBuild () {
+            MessageBox('提示', '正在建设中。。')
         }
     }
 }
@@ -58,7 +84,9 @@ export default {
     .bottombar{
         width: 100%;
         max-width: 10rem;
-        height: toRem(98px);
+        height: calc(toRem(98px) + env(safe-area-inset-bottom));
+        padding-top: toRem(10px);
+        padding-bottom: env(safe-area-inset-bottom);
         margin: 0 auto;
         transform: translate(-50%, 0);
         background: #fff;
@@ -68,9 +96,9 @@ export default {
         ul{
             display: flex;
             li{
-                width: 25%;
+                width: calc(100% / 6);
                 height: toRem(98px);
-                margin-top: toRem(15px);
+                margin-top: toRem(5px);
                 a{
                     display: inline-block;
                     width: 100%;
@@ -99,6 +127,22 @@ export default {
                     }
                 }
                 &:nth-of-type(3){
+                    a{
+                        img{
+                            width: toRem(45px);
+                            height: toRem(39px);
+                        }
+                    }
+                }
+                &:nth-of-type(4){
+                    a{
+                        img{
+                            width: toRem(44px);
+                            height: toRem(39px);
+                        }
+                    }
+                }
+                &:nth-of-type(5){
                     a{
                         img{
                             width: toRem(44px);

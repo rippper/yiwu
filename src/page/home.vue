@@ -6,32 +6,12 @@
                 <div class="h_tp_bp_search">
                     <img src="../assets/yw_search.png" alt @click="goSearch">
                 </div>
-                <!-- <div class="h_tp_bp_add" @click.stop="openAdd">
-                    <img src="../assets/yw_add.png" alt>
-                </div>
-                <div class="h_tp_bp_addfunction" v-show="addType">
-                    <div class="h_tp_bp_afinner">
-                        <ul>
-                            <li @click.stop>
-                                <img src="../assets/yw_history.png" alt>
-                                <span>历史</span>
-                            </li>
-                            <li @click.stop>
-                                <div class="imgpart">
-                                    <img src="../assets/yw_mails.png" alt>
-                                </div>
-                                <span>消息</span>
-                            </li>
-                            <li @click.stop>
-                                <img src="../assets/yw_sweep.png" alt>
-                                <span>扫一扫</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
             </div>
         </div>
         <div class="h_content">
+            <div class="h_ct_datepart">
+                <p>今天是<span v-text="Year"></span>年<span v-text="Month"></span>月<span v-text="Day"></span>日 农历<span v-text="nongli"></span>；</p>
+            </div>
             <notice-banner :notice="noticeList"></notice-banner>
             <div class="h_ct_imgpart">
                 <mt-swipe :showIndicators="false" :auto="5000">
@@ -41,10 +21,6 @@
                                 <img :src="item.Articleimg" alt>
                             </div>
                             <div class="h_ct_ip_wordspart">
-                                <div class="h_ct_ip_wpdate">
-                                    <div class="h_ct_ip_wpdate_date" v-text="item.Date"></div>
-                                    <div class="h_ct_ip_wpdate_year" v-text="item.Year"></div>
-                                </div>
                                 <div class="h_ct_ip_wptitle" v-text="item.Articletitle"></div>
                             </div>
                         </div>
@@ -52,6 +28,44 @@
                 </mt-swipe>
             </div>
             <div class="h_ct_nav">
+                <div class="h_ct_nav_title">
+                    <p>信息资讯</p>
+                </div>
+                <ul>
+                    <li>
+                        <router-link to="/notification">
+                            <div>
+                                <img src="../assets/yw_notices.png" alt>
+                            </div>
+                            <p>
+                                <span>通知公告</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/rankList">
+                            <div>
+                                <img src="../assets/yw_ranks.png" alt>
+                            </div>
+                            <p>
+                                <span>排行榜</span>
+                            </p>
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/courseCenter">
+                            <div>
+                                <img src="../assets/yw_courses.png" alt>
+                            </div>
+                            <p>
+                                <span>课程中心</span>
+                            </p>
+                        </router-link>
+                    </li>
+                </ul>
+                <div class="h_ct_nav_title">
+                    <p>心理服务</p>
+                </div>
                 <ul>
                     <li>
                         <router-link :to="{ path: '/coursecenter', query: { id: 107, title: '心理课程' } }">
@@ -83,42 +97,16 @@
                             </p>
                         </a>
                     </li>
-                    <li>
-                        <router-link to="/notification">
-                            <div>
-                                <img src="../assets/yw_notices.png" alt>
-                            </div>
-                            <p>
-                                <span>通知公告</span>
-                            </p>
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/rankList">
-                            <div>
-                                <img src="../assets/yw_ranks.png" alt>
-                            </div>
-                            <p>
-                                <span>排行榜</span>
-                            </p>
-                        </router-link>
-                    </li>
                 </ul>
             </div>
-            <div class="h_ct_coursetitle">
-                <div class="h_ct_left">
-                    <div class="h_ct_left_title">
-                        课程中心
-                    </div>
-                    <div class="h_ct_left_content">
-                        全方位的课程资源，轻松学习
-                    </div>
-                </div>
-                <div class="h_ct_right">
-                    <router-link to="/courseCenter">
-                        查看更多
-                    </router-link>
-                </div>
+            <div class="h_ct_nav_bottom"></div>
+            <div class="h_ct_specialTask">
+                <router-link :to="{ path: '/trainList' }">
+                    <img src="../assets/yw_training.jpg" alt>
+                </router-link>
+                <router-link :to="{ path: '/courseCenter', query: { id: 112, title: '自贸区发展' } }">
+                    <img src="../assets/zymyq.png" alt>
+                </router-link>
             </div>
             <div class="h_ct_coursetablelist">
                 <mt-navbar v-model="selected">
@@ -146,7 +134,7 @@
                             <img src="../assets/yw_zhishist.png" alt v-show="selected == 3">
                         </div>
                         <p :class="{'h_ct_active': selected == 3}">
-                            <span>业务知识</span>
+                            <span>执政能力</span>
                         </p>
                     </mt-tab-item>
                     <mt-tab-item id="4">
@@ -155,7 +143,7 @@
                             <img src="../assets/yw_renwenst.png" alt v-show="selected == 4">
                         </div>
                         <p :class="{'h_ct_active': selected == 4}">
-                            <span>科学人文</span>
+                            <span>社会经济</span>
                         </p>
                     </mt-tab-item>
                 </mt-navbar>
@@ -360,7 +348,11 @@ export default {
             businessOnload: true,            
             cultureList: [],
             cultureOnload: true,
-            heartList: []
+            heartList: [],
+            Year: '',
+            Month: '',
+            Day: '',
+            nongli: "戊戌年",
         }
     },
     mounted () {
@@ -370,9 +362,14 @@ export default {
         //     }
         // })
         this.render()
+        this.date()
+        this.hdnongli()
     },
     methods: {
         ...mapActions(['saveCourseInfo']),
+        inBuilding () {
+            MessageBox('提示', '正在建设中。。')
+        },
         openAdd () {
             this.addType = true
         },
@@ -390,10 +387,231 @@ export default {
             this.$router.push({ path: '/newsDetails', query: { ref: item.articleContent } })
         },
         linkToHeart () {
-            this.$router.push({ path: '/newsDetails', query: { ref: this.heartList[0].articleContent } })
+            this.$router.push({ path: '/newsDetails', query: { ref: this.heartList[0].articleContent, type: 'heart' } })
         },
         onBuild () {
-            MessageBox('提示','正在建设中')
+            this.$router.push({ path: '/examHeartList' })
+        },
+        date () {
+            const date = new Date()
+            this.Year = date.getFullYear()
+            this.Month = date.getMonth() + 1
+            this.Day = date.getDate()
+        },
+        hdnongli () {
+            var CalendarData = new Array(100);
+            var madd = new Array(12);
+            var tgString = "甲乙丙丁戊己庚辛壬癸";
+            var dzString = "子丑寅卯辰巳午未申酉戌亥";
+            var numString = "一二三四五六七八九十";
+            var monString = "正二三四五六七八九十冬腊";
+            var sx = "鼠牛虎兔龙蛇马羊猴鸡狗猪";
+            var cYear, cMonth, cDay, TheDate;
+            CalendarData = [
+                0xa4b,
+                0x5164b,
+                0x6a5,
+                0x6d4,
+                0x415b5,
+                0x2b6,
+                0x957,
+                0x2092f,
+                0x497,
+                0x60c96,
+                0xd4a,
+                0xea5,
+                0x50da9,
+                0x5ad,
+                0x2b6,
+                0x3126e,
+                0x92e,
+                0x7192d,
+                0xc95,
+                0xd4a,
+                0x61b4a,
+                0xb55,
+                0x56a,
+                0x4155b,
+                0x25d,
+                0x92d,
+                0x2192b,
+                0xa95,
+                0x71695,
+                0x6ca,
+                0xb55,
+                0x50ab5,
+                0x4da,
+                0xa5b,
+                0x30a57,
+                0x52b,
+                0x8152a,
+                0xe95,
+                0x6aa,
+                0x615aa,
+                0xab5,
+                0x4b6,
+                0x414ae,
+                0xa57,
+                0x526,
+                0x31d26,
+                0xd95,
+                0x70b55,
+                0x56a,
+                0x96d,
+                0x5095d,
+                0x4ad,
+                0xa4d,
+                0x41a4d,
+                0xd25,
+                0x81aa5,
+                0xb54,
+                0xb6a,
+                0x612da,
+                0x95b,
+                0x49b,
+                0x41497,
+                0xa4b,
+                0xa164b,
+                0x6a5,
+                0x6d4,
+                0x615b4,
+                0xab6,
+                0x957,
+                0x5092f,
+                0x497,
+                0x64b,
+                0x30d4a,
+                0xea5,
+                0x80d65,
+                0x5ac,
+                0xab6,
+                0x5126d,
+                0x92e,
+                0xc96,
+                0x41a95,
+                0xd4a,
+                0xda5,
+                0x20b55,
+                0x56a,
+                0x7155b,
+                0x25d,
+                0x92d,
+                0x5192b,
+                0xa95,
+                0xb4a,
+                0x416aa,
+                0xad5,
+                0x90ab5,
+                0x4ba,
+                0xa5b,
+                0x60a57,
+                0x52b,
+                0xa93,
+                0x40e95
+            ];
+            madd[0] = 0;
+            madd[1] = 31;
+            madd[2] = 59;
+            madd[3] = 90;
+            madd[4] = 120;
+            madd[5] = 151;
+            madd[6] = 181;
+            madd[7] = 212;
+            madd[8] = 243;
+            madd[9] = 273;
+            madd[10] = 304;
+            madd[11] = 334;
+
+            function GetBit(m, n) {
+                return (m >> n) & 1;
+            }
+            function e2c() {
+                TheDate =
+                arguments.length != 3
+                    ? new Date()
+                    : new Date(arguments[0], arguments[1], arguments[2]);
+                var total, m, n, k;
+                var isEnd = false;
+                var tmp = TheDate.getYear();
+                if (tmp < 1900) {
+                tmp += 1900;
+                }
+                total =
+                (tmp - 1921) * 365 +
+                Math.floor((tmp - 1921) / 4) +
+                madd[TheDate.getMonth()] +
+                TheDate.getDate() -
+                38;
+
+                if (TheDate.getYear() % 4 == 0 && TheDate.getMonth() > 1) {
+                total++;
+                }
+                for (m = 0; ; m++) {
+                k = CalendarData[m] < 0xfff ? 11 : 12;
+                for (n = k; n >= 0; n--) {
+                    if (total <= 29 + GetBit(CalendarData[m], n)) {
+                    isEnd = true;
+                    break;
+                    }
+                    total = total - 29 - GetBit(CalendarData[m], n);
+                }
+                if (isEnd) break;
+                }
+                cYear = 1921 + m;
+                cMonth = k - n + 1;
+                cDay = total;
+                if (k == 12) {
+                if (cMonth == Math.floor(CalendarData[m] / 0x10000) + 1) {
+                    cMonth = 1 - cMonth;
+                }
+                if (cMonth > Math.floor(CalendarData[m] / 0x10000) + 1) {
+                    cMonth--;
+                }
+                }
+            }
+
+            function GetcDateString() {
+                var tmp = "";
+                tmp += tgString.charAt((cYear - 4) % 10);
+                tmp += dzString.charAt((cYear - 4) % 12);
+                tmp += "(";
+                tmp += sx.charAt((cYear - 4) % 12);
+                tmp += ")年 ";
+                if (cMonth < 1) {
+                tmp += "(闰)";
+                tmp += monString.charAt(-cMonth - 1);
+                } else {
+                tmp += monString.charAt(cMonth - 1);
+                }
+                tmp += "月";
+                tmp += cDay < 11 ? "初" : cDay < 20 ? "十" : cDay < 30 ? "廿" : "三十";
+                if (cDay % 10 != 0 || cDay == 10) {
+                tmp += numString.charAt((cDay - 1) % 10);
+                }
+                return tmp;
+            }
+
+            function GetLunarDay(solarYear, solarMonth, solarDay) {
+                //solarYear = solarYear<1900?(1900+solarYear):solarYear;
+                if (solarYear < 1921 || solarYear > 2020) {
+                return "";
+                } else {
+                solarMonth = parseInt(solarMonth) > 0 ? solarMonth - 1 : 11;
+                e2c(solarYear, solarMonth, solarDay);
+                return GetcDateString();
+                }
+            }
+
+            var D = new Date();
+            var yy = D.getFullYear();
+            var mm = D.getMonth() + 1;
+            var dd = D.getDate();
+            if (yy < 100) yy = "19" + yy;
+            function showCal() {
+                let nonglitime = GetLunarDay(yy, mm, dd);
+                return nonglitime;
+            }
+            this.nongli = showCal()
         },
         async render () {
             const notice = await getNoticeInfoList({
@@ -403,12 +621,17 @@ export default {
 
             if (notice.NoticeInfoList.length > 0) {
                 notice.NoticeInfoList = [...notice.NoticeInfoList, notice.NoticeInfoList[0]]
+                console.log(notice.NoticeInfoList)
+                notice.NoticeInfoList.forEach(item => {
+                    item.Noticetitle = item.Noticetitle.substr(0,20) + '...'
+                })
                 this.noticeList = notice.NoticeInfoList
             }
 
             const bannerInfo = await getArticleInfoList({
                 method: 'getArticleInfoList',
                 Channel_id: '69',
+                Sort: 'desc',
                 Page: 1,
                 PageCount: 4
             })  // 首页轮播图
@@ -446,13 +669,13 @@ export default {
             })  // 政策法规
             const notneeded = await getCourseInfoListAll({ 
                 method: 'getCourseInfoList',
-                channelId: '105',
+                channelId: '40',
                 Page: 1,
                 PageCount: 4
             })  // 业务知识
             const compre = await getCourseInfoListAll({ 
                 method: 'getCourseInfoList',
-                channelId: '106',
+                channelId: '110',
                 Page: 1,
                 PageCount: 4
             })  // 科学人文
@@ -545,101 +768,19 @@ export default {
                     height: toRem(40px);
                 }
             }
-            // .h_tp_bp_add{
-            //     width: toRem(50px);
-            //     height: toRem(92px);
-            //     line-height: toRem(92px);
-            //     text-align: center;
-            //     img{
-            //         width: toRem(38px);
-            //         height: toRem(38px);
-            //     }
-            // }
-            // .h_tp_bp_addfunction{
-            //     width: toRem(190px);
-            //     height: toRem(229px);
-            //     border-radius: toRem(15px);
-            //     position: absolute;
-            //     top: toRem(92px);
-            //     right: toRem(-6px);
-            //     &::before{
-            //         content: '';
-            //         width: toRem(20px);
-            //         height: toRem(20px);
-            //         background: #f2f4f6;
-            //         transform: rotateZ(45deg);
-            //         display: inline-block;
-            //         position: absolute;
-            //         right: toRem(21px);
-            //         top: toRem(-12px);
-            //     }
-            //     .h_tp_bp_afinner{
-            //         width: toRem(190px);
-            //         height: toRem(229px);
-            //         border-radius: toRem(15px);
-            //         position: relative;
-            //         background: #f2f4f6;
-            //         overflow: hidden;
-            //         ul{
-            //             li{
-            //                 height: toRem(77px);
-            //                 border-bottom: 1px solid #ddd;
-            //                 &:first-of-type{
-            //                     display: flex;
-            //                     align-items: center;
-            //                     img{
-            //                         width: toRem(40px);
-            //                         height: toRem(40px);
-            //                         margin-left: toRem(21px);
-            //                         margin-right: toRem(18px);
-            //                     }
-            //                     span{
-            //                         font-size: 0.4rem;
-            //                         font-weight: bold;
-            //                     }
-            //                 }
-            //                 &:nth-of-type(2){
-            //                     display: flex;
-            //                     align-items: center;
-            //                     .imgpart{
-            //                         position: relative;
-            //                         margin-left: toRem(21px);
-            //                         margin-right: toRem(18px);
-            //                         img{ 
-            //                             width: toRem(38px);
-            //                             height: toRem(34px);
-            //                         }
-            //                     }
-            //                     span{
-            //                         font-size: 0.4rem;
-            //                         font-weight: bold;
-            //                     }
-
-            //                 }
-            //                 &:last-of-type{
-            //                     display: flex;
-            //                     align-items: center;
-            //                     img{
-            //                         width: toRem(36px);
-            //                         height: toRem(36px);
-            //                         margin-left: toRem(21px);
-            //                         margin-right: toRem(18px);
-            //                     }
-            //                     span{
-            //                         font-size: 0.4rem;
-            //                         font-weight: bold;
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
         }
     }
     .h_content{
         width: 100%;
         padding-top: toRem(92px);
         background: #fff;
+        .h_ct_datepart{
+            width: toRem(690px);
+            margin: toRem(20px) auto 0;
+            p{
+                font-size: 0.35rem;
+            }
+        }
         .h_ct_imgpart{
             width: toRem(690px);
             height: toRem(360px);
@@ -663,47 +804,47 @@ export default {
                 }
             }
             .h_ct_ip_wordspart{
-                display: flex;
                 width: 100%;
                 height: toRem(80px);
                 background: rgba(0,0,0,0.5);
                 position: absolute;
                 left: 0;
                 bottom: 0;
-                .h_ct_ip_wpdate{
-                    width: toRem(120px);
-                    height: 100%;
-                    background: $brand-primary;
-                    color: #fff;
-                    .h_ct_ip_wpdate_date{
-                        height: toRem(50px);
-                        line-height: toRem(50px);
-                        text-align: center;
-                        font-size: 0.7rem;
-                        font-weight: bold;
-                    }
-                    .h_ct_ip_wpdate_year{
-                        text-align: center;
-                        font-size: 0.25rem;
-                    }
-                }
                 .h_ct_ip_wptitle{
                     height: toRem(80px);
                     line-height: toRem(80px);
                     padding-right: toRem(15px);
                     text-indent: 0.5rem;
                     color: #fff;
-                    font-size: 0.45rem;
-                    // @include ellipsis_two(1);
+                    font-size: 0.35rem;
+                    @include ellipsis_two(1);
                 }
             }
         }
         .h_ct_nav{
             width: toRem(690px);
-            height: toRem(210px);
+            height: toRem(552px);
             padding-top: toRem(10px);
             margin: 0 auto;
+            .h_ct_nav_title{
+                height: toRem(60px);
+                display: flex;
+                align-items: center;
+                &::before{
+                    content: '';
+                    width: toRem(7px);
+                    height: toRem(35px);
+                    border-radius: toRem(7px);
+                    background: $brand-primary;
+                    display: inline-block;
+                }
+                p{
+                    margin-left: toRem(20px);
+                    font-size: 0.35rem;
+                }
+            }
             ul{
+                padding: 0 toRem(73px);
                 display: flex;
                 justify-content: space-between;
                 li{
@@ -723,9 +864,28 @@ export default {
                         p{
                             margin-top: toRem(15px);
                             font-size: 0.35rem;
-                            font-weight: bolder;
                         }
                     }
+                }
+            }
+        }
+        .h_ct_nav_bottom{
+            width: 100%;
+            height: toRem(20px);
+            background: #f2f4f6;
+        }
+        .h_ct_specialTask{
+            padding: toRem(30px) 0;
+            a{
+                width: toRem(690px);
+                margin: 0 auto;
+                display: block;
+                &:last-of-Type{
+                    margin-top: toRem(30px);
+                }
+                img{
+                    width: toRem(690px);
+                    border-radius: toRem(15px);
                 }
             }
         }
@@ -790,8 +950,7 @@ export default {
                     }
                     p{
                         margin-top: toRem(17px);
-                        font-size: 0.4rem;
-                        font-weight: bold;
+                        font-size: 0.35rem;
                     }
                     .h_ct_active{
                         
@@ -804,7 +963,7 @@ export default {
             }
             .h_ct_ctl_courselist{
                 width: 100%;
-                padding-bottom: toRem(118px);
+                padding-bottom: toRem(135px);
                 background: #f2f4f6;
                 padding-top: toRem(20px);
                 .h_ct_ctl_clinner{
@@ -842,8 +1001,7 @@ export default {
                                 line-height: 0.5rem;
                                 margin: toRem(25px) auto 0;
                                 text-align: left;
-                                font-size: 0.4rem;
-                                font-weight: bold;
+                                font-size: 0.35rem;
                                 @include ellipsis_two(2);
                             }
                             .h_ct_ctl_scoreadtype{

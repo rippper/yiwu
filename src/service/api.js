@@ -137,8 +137,7 @@ export const Api2 = {
       method: 'UploadTimeNode',
       UserID: '',
       CourseNumber: '',
-      TimeNode: '',
-      TotalTime: ''
+      TimeNode: ''
     }
   },
   /**
@@ -501,6 +500,164 @@ export const Api2 = {
         userid: ''
       */
     }
+  },
+  GetExamListTest: {
+    url: API_URL,
+    data: {
+      method: 'GetExamListTest'
+    }
+  },
+  GetExamTest: {
+    url: API_URL,
+    data: {
+      method: 'GetExamTest',
+    }
+  },
+  // 心理测试结果上传
+  UpdateUserExam_YY: {
+    url: API_URL,
+    data: {
+      method: 'UpdateUserExam_YY'
+    }
+  },
+  // 心理测试睡眠质量数据上传接口
+  UpdateUserExam_Sleep: {
+    url: API_URL,
+    data: {
+      method: 'UpdateUserExam_Sleep'
+    }
+  },
+  // 查询用户心理测试考试历史
+  GetUserTestHistory: {
+    url: API_URL,
+    data: {
+      method: 'GetUserTestHistory'
+    }
+  },
+  // 获取心理测试每题结果
+  GetExamTheme: {
+    url: API_URL,
+    data: {
+      method: 'GetExamTheme'
+    }
+  },
+  // 获取课程评论
+  GetCommentList: {
+    url: API_URL,
+    data: {
+      method: 'GetCourseComment'
+      // courseid, page, pagesize
+    }
+  },
+  // 课程 添加课程评论
+  AddCourseComment: {
+    url: API_URL,
+    data: {
+      method: 'AddCourseComment',
+      // userid, courseid, data
+    }
+  },
+  // 直播 用户限制
+  CheckCanWatchByLiveId: {
+    url: API_URL,
+    data: {
+      method: 'CheckCanWatchByLiveId'
+      // userid liveid
+    }
+  },
+  // 直播 获取直播列表
+  LiveTelecastList: {
+    url: API_URL,
+    data: {
+      method: 'LiveTelecastList'
+    }
+  },
+  // 交流园地 获取原创文章列表
+  GetYCComment: {
+    url: API_URL,
+    data: {
+      method: 'GetYCComment',
+      page: '',
+      pagesize: ''
+    }
+  },
+  // 交流园地 获取学习评论列表
+  GetCommnetList: {
+    url: API_URL,
+    data: {
+      method: 'GetCommnetList',
+      page: '',
+      pagesize: ''
+    }
+  },
+  // 培训班 培训班列表
+  getTrainningClassList: {
+    url: API_URL,
+    data: {
+      method: 'getTrainningClassList',
+      UserID: '',
+      type: '', // 0 正在学习; 1 即将举办; 2 已经举办
+      Page: '',
+      PageSize: ''
+    }
+  },
+  // 培训班 培训班详情
+  GetTrainingDetail: {
+    url: API_URL,
+    data: {
+      method: 'GetTrainingDetail',
+      UserID: '',
+      tid: ''
+    }
+  },
+  // 培训班 报名
+  SignUp: {
+    url: API_URL,
+    data: {
+      method: 'SignUp',
+      UserID: '',
+      tid: ''
+    }
+  },
+  // 培训班 取消报名
+  SignOff: {
+    url: API_URL,
+    data: {
+      method: 'SignOff',
+      UserID: '',
+      tid: ''
+    }
+  },
+  // 培训班 培训班课程列表
+  GetTrainningClassCourseList: {
+    url: API_URL,
+    data: {
+      method: 'GetTrainningClassCourseList',
+      UserID: '',
+      tid: '',
+      Page: '',
+      PageSize: ''
+    }
+  },
+  // 培训班 培训班考试列表
+  GetTrainningClasExamList: {
+    url: API_URL,
+    data: {
+      method: 'GetTrainningClasExamList',
+      UserID: '',
+      tid: '',
+      Page: '',
+      PageSize: ''
+    }
+  },
+  // 培训班 检查是否可以参加考试
+  CheckCanTrainingExam: {
+    url: API_URL,
+    data: {
+      method: 'CheckCanTrainingExam',
+      UserID: '',
+      tid: ''
+    }
   }
 };
 /*3.0接口*/
@@ -742,13 +899,6 @@ export const Api3 = {
       JoinStatus: '',
       Page: '1',
       Rows: '20'
-    }
-  },
-  //培训班详情
-  GetTrainingDetail: {
-    url: API_URL + Platform + '/GetTrainingDetail',
-    data: {
-      Id: ''
     }
   },
   //签到列表

@@ -10,16 +10,13 @@
           <img src="../assets/myExam.png">
         </div>
       </router-link>
-      <!-- <div class="referenceExam">
-        <img src="../assets/refenceExam.png">
-      </div> -->
-      <router-link to="/userRaceRank">
+      <!-- <router-link to="/userRaceRank">
         <div class="rankExam">
           <img src="../assets/examRank.png">
         </div>
-      </router-link>
+      </router-link> -->
     </div>
-    <bottomBar :selected="'3'"></bottomBar>
+    <bottomBar :selected="'5'"></bottomBar>
   </div>
 </template>
 <script>
@@ -35,6 +32,8 @@ export default {
 <style lang="scss" rel="stylesheet/scss">
 @import "../style/mixin";
 .guideList {
+  max-width: 10rem;
+  margin: 0 auto;
   div {
     width: toRem(690px);
     height: toRem(330px);

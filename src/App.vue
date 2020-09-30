@@ -20,7 +20,8 @@
   }
 </script>
 
-<style lang="scss">
+<style>
+@import '../static/css/fonts.css';
   .router-fade-enter-active,
   .router-fade-leave-active {
     transition: opacity 0.3s;

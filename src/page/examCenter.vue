@@ -199,6 +199,9 @@
         let list = []
         if (Array.isArray(data.ExamInfoList)) {
           list = data.ExamInfoList
+          list.forEach(item => {
+            item.type = 'normal'
+          });
         }
         if (list.length == 0 && this.unFinishPage > 0) {
           this.unFinishNoData = true

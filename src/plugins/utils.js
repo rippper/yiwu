@@ -365,3 +365,116 @@ export const getMac = () => {
   }
   return mac;
 };
+// 义乌心理测试症状自评量表
+export const analyResult = (obj) => {
+  let data = {};
+  // 躯体化
+  if (obj.result1 > 36) {
+    data.躯体化 = '有明显不适感'
+  } else if (obj.result1 >= 24 && obj.result1 <= 36) {
+    data.躯体化 = '存在不适感'
+  } else if (obj.result1 < 24) {
+    data.躯体化 = '不适感不明显'
+  }
+  // 强迫症状
+  if (obj.result2 > 30) {
+    data.强迫症状 = '存在症状'
+  } else if (obj.result2 <= 30 && obj.result2 >= 20) {
+    data.强迫症状 = '症状较明显'
+  } else if (obj.result2 <= 20) {
+    data.强迫症状 = '症状不明显'
+  }
+  // 人际关系敏感
+  if (obj.result3 > 27) {
+    data.人际关系敏感 = '敏感'
+  } else if (obj.result3 <= 27 && obj.result3 >= 18) {
+    data.人际关系敏感 = '较敏感'
+  } else if (obj.result3 <= 18) {
+    data.人际关系敏感 = '正常'
+  }
+  // 抑郁
+  if (obj.result4 > 39) {
+    data.抑郁 = '程度较强'
+  } else if (obj.result4 <= 39 && obj.result4 >= 26) {
+    data.抑郁 = '程度一般'
+  } else if (obj.result4 <= 26) {
+    data.抑郁 = '程度较弱'
+  }
+  // 焦虑
+  if (obj.result5 > 30) {
+    data.焦虑 = '较易焦虑'
+  } else if (obj.result5 <= 30 && obj.result5 >= 20) {
+    data.焦虑 = '普通'
+  } else if (obj.result5 <= 20) {
+    data.焦虑 = '不易焦虑'
+  }
+  // 敌对
+  if (obj.result6 > 18) {
+    data.敌对 = '易表现出敌对思想'
+  } else if (obj.result6 <= 18 && obj.result6 >= 12) {
+    data.敌对 = '一般'
+  } else if (obj.result6 <= 12) {
+    data.敌对 = '易表现出友好思想'
+  }
+  // 恐怖
+  if (obj.result7 > 18) {
+    data.恐怖 = '症状较明显'
+  } else if (obj.result7 <= 18 && obj.result7 >= 12) {
+    data.恐怖 = '一般'
+  } else if (obj.result7 <= 12) {
+    data.恐怖 = '症状不明显'
+  }
+  // 偏执
+  if (obj.result8 > 18) {
+    data.偏执 = '症状较明显'
+  } else if (obj.result8 <= 18 && obj.result8 >= 12) {
+    data.偏执 = '一般'
+  } else if (obj.result8 <= 12) {
+    data.偏执 = '症状不明显'
+  }
+  // 精神病性
+  if (obj.result9 > 18) {
+    data.精神病性 = '症状较明显'
+  } else if (obj.result9 <= 18 && obj.result9 >= 12) {
+    data.精神病性 = '一般'
+  } else if (obj.result9 <= 12) {
+    data.精神病性 = '症状不明显'
+  }
+  // 其他
+  data.其他 = Math.round(obj.result10 * 10 / 7) / 10 + '(因子分)'
+  return data
+}
+// 义乌心理测试焦虑自评量表
+export const analyAnxiety = (obj) => {
+  let data = {}
+  if (obj.result < 50) {
+    data.症状等级 = '无焦虑'
+  } else if (obj.result <= 59 && obj.result >= 50) {
+    data.症状等级 = '轻度焦虑'
+  } else if (obj.result <= 69 && obj.result >= 60) {
+    data.症状等级 = '中度焦虑'
+  } else if (obj.result >= 70) {
+    data.症状等级 = '重度焦虑'
+  }
+  return data
+}
+// 义乌心理测试抑郁自评量表
+export const analyDepression = (obj) => {
+  let data = {}
+  if (obj.result < 53) {
+    data.症状等级 = '无抑郁'
+  } else if (obj.result <= 62 && obj.result >= 53) {
+    data.症状等级 = '轻度抑郁'
+  } else if (obj.result <= 72 && obj.result >= 63) {
+    data.症状等级 = '中度抑郁'
+  } else if (obj.result >= 73) {
+    data.症状等级 = '重度抑郁'
+  }
+  return data
+}
+// 义乌心理测试匹兹堡睡眠质量指数
+export const analySleep = (obj) => {
+  let data = {}
+  data.PSQI总分 = obj.result
+  return data
+}

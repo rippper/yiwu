@@ -2,12 +2,9 @@
 * 课程中心
 */
 <template>
-  <div class="courseCenter container_both">
+  <div class="courseCenter container_top">
     <header-fix :title="courseTitle" fixed>
-      <a slot="left" @click="toggleNav">
-        <i class="webapp webapp-category"></i>
-      </a>
-      <router-link slot="right" to="/courseSearch"><i class="webapp webapp-search"></i></router-link>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <nav-slide :show="showSlide" @showChange="showChange">
       <div slot="left" class="category">
@@ -23,7 +20,6 @@
         <skeleton-item v-else v-for="i in 10" :key="i"/>
       </div>
     </nav-slide>
-    <bottomBar :selected="'2'"></bottomBar>
   </div>
 </template>
 <script>
@@ -37,11 +33,12 @@
     // singleUploadTimeNode
   } from '../service/getData'
   import { getStore, setStore } from "../plugins/utils";
-  import { bottomBar } from '../components'
+  import {goBack} from '../service/mixins';
 
   Vue.use(InfiniteScroll)
   Vue.component(MessageBox.name, MessageBox)
   export default {
+    mixins: [goBack],
     data() {
       return {
         courseTitle: '课程中心',
@@ -206,9 +203,6 @@
         //   setStore('singleProgress', singleStore)
         // }
       }
-    },
-    components: {
-      bottomBar
     },
     beforeRouteLeave(to, from, next) {
       MessageBox.close()

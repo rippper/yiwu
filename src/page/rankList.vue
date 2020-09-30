@@ -2,15 +2,15 @@
 * 排行傍
 */
 <template>
-  <div class="rankList container_top">
+  <div class="rankList">
     <!--头部-->
     <header-fix title="排行榜" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <mt-navbar v-model="selected">
-      <mt-tab-item id="1">学员排名</mt-tab-item>
+      <mt-tab-item id="1">学习标兵</mt-tab-item>
       <mt-tab-item id="2">课程排名</mt-tab-item>
-      <mt-tab-item id="3">地区排名</mt-tab-item>
+      <mt-tab-item id="3">单位排名</mt-tab-item>
     </mt-navbar>
 
     <!-- tab-container -->
@@ -19,18 +19,20 @@
         <table class="table">
           <thead class="fixed_rank_title">
           <tr>
-            <th class="rank">排名</th>
-            <th class="student">学员</th>
-            <th class="credit">学分</th>
+            <th class="student_rank">排名</th>
+            <th class="student_list">学员</th>
+            <th class="student_company">学员单位</th>
+            <th class="student_times">学分</th>
           </tr>
           </thead>
           <tbody class="fixed_rank_content">
           <tr v-for="(item,index) in studentData" :key="item.index">
-            <td v-if="index<3" class="rank"
+            <td v-if="index<3" class="student_rank"
                 :class="{'rank_bg_one':index==0,'rank_bg_two':index==1,'rank_bg_three':index==2,}"></td>
-            <td v-if="index>=3" class="rank">{{item.index}}</td>
-            <td class="student">{{item.name}}</td>
-            <td class="credit">{{item.value}}</td>
+            <td v-if="index>=3" class="student_rank">{{item.index}}</td>
+            <td class="student_list">{{item.name}}</td>
+            <td class="student_company">{{item.groupname}}</td>
+            <td class="student_times">{{item.value}}</td>
           </tr>
           </tbody>
         </table>
@@ -40,18 +42,18 @@
         <table class="table">
           <thead class="fixed_rank_title">
           <tr>
-            <th class="rank">排名</th>
-            <th class="student">课程</th>
-            <th class="credit">播放次数</th>
+            <th class="course_rank">排名</th>
+            <th class="course_name">课程</th>
+            <th class="course_times">播放次数</th>
           </tr>
           </thead>
           <tbody class="fixed_rank_content">
           <tr v-for="(item,index) in courseData" :key="item.index">
-            <td v-if="index<3" class="rank"
+            <td v-if="index<3" class="course_rank"
                 :class="{'rank_bg_one':index==0,'rank_bg_two':index==1,'rank_bg_three':index==2,}"></td>
-            <td v-if="index>=3" class="rank">{{item.index}}</td>
-            <td class="student">{{item.name}}</td>
-            <td class="credit">{{item.value}}</td>
+            <td v-if="index>=3" class="course_rank">{{item.index}}</td>
+            <td class="course_name">{{item.name}}</td>
+            <td class="course_times">{{item.value}}</td>
           </tr>
           </tbody>
         </table>
@@ -61,18 +63,18 @@
         <table class="table">
           <thead class="fixed_rank_title">
           <tr>
-            <th class="rank">排名</th>
-            <th class="student">单位</th>
-            <th class="credit">学分</th>
+            <th class="course_rank">排名</th>
+            <th class="course_name">单位</th>
+            <th class="course_times">学分</th>
           </tr>
           </thead>
           <tbody class="fixed_rank_content">
           <tr v-for="(item,index) in groupData" :key="item.index">
-            <td v-if="index<3" class="rank"
+            <td v-if="index<3" class="course_rank"
                 :class="{'rank_bg_one':index==0,'rank_bg_two':index==1,'rank_bg_three':index==2,}"></td>
-            <td v-if="index>=3" class="rank">{{item.index}}</td>
-            <td class="student">{{item.name}}</td>
-            <td class="credit">{{item.value}}</td>
+            <td v-if="index>=3" class="course_rank">{{item.index}}</td>
+            <td class="course_name">{{item.name}}</td>
+            <td class="course_times">{{item.value}}</td>
           </tr>
           </tbody>
         </table>
@@ -120,6 +122,7 @@
             if (data.RankInfoList.length == 0) {
               this.noDataBg1 = true
             }
+            console.log(this.studentData)
           } else if (RankType == '2') {
             this.courseData = data.RankInfoList
             if (data.RankInfoList.length == 0) {
@@ -141,7 +144,8 @@
   @import "../style/mixin";
 
   .rankList {
-    padding-top: toRem(260px);
+    padding-top: toRem(250px);
+    height: 100vh;
     .mint-navbar {
       position: fixed;
       top: toRem(92px);
@@ -151,16 +155,13 @@
     }
     .fixed_rank_title {
       position: fixed;
-      top: toRem(182px);
+      top: toRem(175px);
       left: 0;
       width: 100%;
       background-color: $brand-primary;
       z-index: 10;
     }
     .fixed_rank_content{
-      position: fixed;
-      top: toRem(260px);
-      left: 0;
       width: 100%;
       z-index: 10;
     }
@@ -183,6 +184,33 @@
       }
       .rank {
         width: toRem(225px);
+      }
+      .student_rank{
+        width: toRem(150px);
+      }
+      .student_list{
+        width: toRem(150px);
+      }
+      .student_company{
+        width: toRem(402px);
+        line-height: toRem(55px);
+        padding: toRem(10px) 0;
+        @include ellipsis_two(2);
+      }
+      .student_times{
+        width: toRem(150px);
+      }
+      .course_rank{
+        width: toRem(150px);
+      }
+      .course_name{
+        width: toRem(452px);
+        line-height: toRem(55px);
+        padding: toRem(10px) 0;
+        @include ellipsis_two(2);
+      }
+      .course_times{
+        width: toRem(150px);
       }
       .student {
         width: toRem(302px);

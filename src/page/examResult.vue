@@ -75,7 +75,8 @@
         examPaperId: 0,
         mobileNum: '',
         result: {},
-        reg: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/
+        reg: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+        typeWay: this.$route.query.typeWay
       };
     },
     computed: {
@@ -99,13 +100,17 @@
         this.result = data.ExamInfoList[0];
       },
       back() {
-        this.$router.push({path: '/raceHistory', query: {examId: this.result.ExamID}});
+        if (this.typeWay == 'train') {
+          this.$router.push({ path: '/trainList' })
+        } else {
+          this.$router.push({path: '/'});
+        }
       },
       goReview() {
         this.$router.push({path: '/examReview', query: {examId: this.result.ExamID, examPaperId: this.examPaperId}});
       },
       goExam() {
-        this.$router.push({path: '/exam', query: {id: this.result.ExamID}});
+        this.$router.push({path: '/exam', query: {id: this.result.ExamID, typeWay: this.typeWay}});
       },
       oneMore() {
         this.$router.push({path: 'exam', query: {id: this.result.examId}});

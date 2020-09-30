@@ -64,6 +64,7 @@ const router = new VueRouter({
   routes
 });
 router.beforeEach((to, from, next) => {
+  console.log(to)
   let fromUrl = from.fullPath;
   let href = window.location.href;
   if (!/\/favicon\.ico/.test(href)) {
@@ -74,10 +75,11 @@ router.beforeEach((to, from, next) => {
   if (to.name !== 'login') {
     if (JSON.stringify(store.state.userInfo) === '{}') {
       next({
-        path: '/login'
+        path: '/login', query: { name: to.path, query: JSON.stringify(to.query) }
       });
     } else {
       getLoginStatus(next);
+      next()
     }
   } else {
     next();

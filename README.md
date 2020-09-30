@@ -2,7 +2,12 @@
 
 > 微信公众号 + webapp
 
-苏州干部学习平台
+义乌干部：
+admin: admin
+password: CqVvChSrY4WRp0J5
+address: http://gbjy.yw.gov.cn/wechat
+
+义乌干部学习平台
 ## 技术栈
 
 vue2 + vuex + vue-router + mintui + webpack + ES6/7 + axios + sass + flex + iconfont
@@ -14,7 +19,7 @@ vue2 + vuex + vue-router + mintui + webpack + ES6/7 + axios + sass + flex + icon
 npm install
 
 # serve with hot reload at localhost:8080
-npm run dev
+npm start
 
 # build for production with minification
 npm run build

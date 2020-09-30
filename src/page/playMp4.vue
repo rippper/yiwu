@@ -15,20 +15,18 @@
         :src="courseInfo.ONLINE_URL"
         controls
         style="object-fit:fill;"
-        x5-video-player-type="h5"
         webkit-playsinline="true"
         playsinline="true"
+        x5-playsinline="true"
         x-webkit-airplay="true"
-        x5-video-player-fullscreen="true"
-        x5-video-orientation="portraint"
       ></video>
-      <audio v-if="playType == 'mp3'" id="myPlayer" :src="courseInfo.ONLINE_URL" controls></audio>
+      <!-- <audio v-if="playType == 'mp3'" id="myPlayer" :src="courseInfo.ONLINE_URL" controls></audio> -->
       <!--<video v-else id="myVideo" preload="meta" :src="courseDetails.OnlineUrl" controls></video>-->
     </div>
-    <div class="toggle_play">
+    <!-- <div class="toggle_play">
       <mt-button :type="playType == 'mp4'?'primary':'default'" size="small" @click="togglePlayer('mp4')">播放MP4</mt-button>
       <mt-button :type="playType == 'mp3'?'primary':'default'" size="small" @click="togglePlayer('mp3')">播放MP3</mt-button>
-    </div>
+    </div> -->
     <div class="error_alert" v-show="progressStack.length > 0">
       <span>提交进度失败，请手动提交</span>
       <mt-button class="upload_btn" type="default" size="small" @click.native="uploadProgress">提交进度</mt-button>
@@ -38,12 +36,17 @@
         <mt-tab-item id="introduce">介绍</mt-tab-item>
         <!--<mt-tab-item id="relatedCourse">相关课程</mt-tab-item>-->
         <!--<mt-tab-item id="notes">学习笔记</mt-tab-item>-->
-        <!--<mt-tab-item id="evaluate">评价</mt-tab-item>-->
+        <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="introduce">
           <course-introduce :course-details="courseInfo"></course-introduce>
+          <div class="course_examBtn">
+            <div class="course_exambtn" @click="linkToExam">
+              去考试
+            </div>
+          </div>
         </mt-tab-container-item>
         <!--<mt-tab-container-item id="relatedCourse">
           <section v-if="selected === 'relatedCourse'" v-infinite-scroll="getRelatedCourse"
@@ -61,10 +64,10 @@
               添加笔记
             </mt-button>
           </div>
-        </mt-tab-container-item>
-        <mt-tab-container-item id="evaluate">
-          &lt;!&ndash;<course-comment :course-id="courseId" :comment-credit="courseDetails.CommentCredit"></course-comment>&ndash;&gt;
         </mt-tab-container-item>-->
+        <mt-tab-container-item id="evaluate">
+          <course-comment :course-id="courseRealId" :comment-credit="courseDetails.CommentCredit" ref="courseComment" :course-details="courseInfo"></course-comment>
+        </mt-tab-container-item>
       </mt-tab-container>
     </div>
     <!--添加笔记-->
@@ -165,7 +168,9 @@ export default {
       checkTimer: "",
       listenTimer: "",
       progressStack: [],
-      userInfo: ""
+      userInfo: "",
+      courseRealId: '',
+      examId: ''
     };
   },
   created() {
@@ -176,19 +181,11 @@ export default {
     }
     this.userInfo = getStore("userInfo");
     this.courseId = this.$route.query.id;
-    // let store = getStore("singleProgress") || {};
-    // this.progressStack = store[this.courseId] || [];
-    // console.log(this.progressStack);
     console.log(this.courseInfo)
     this.netWorkType();
   },
   mounted() {
     /*初始化 打开APP*/
-    // eslint-disable-next-line
-    /*new Mlink({
-        mlink: 'https://afaki8.mlinks.cc/A0BP?Title=&Content=&Id=' + this.courseId + '&Type=Course&Token=' + localStorage.getItem('ASPXAUTH'),
-        button: document.querySelector('a#btnOpenApp')
-      })*/
     this.isDenyUser();
     /* 获取media对象 */
     this.myPlayer = document.getElementById("myPlayer");
@@ -201,20 +198,28 @@ export default {
   computed: {
     ...mapState(["courseInfo"])
   },
-  // components: {
-  //   bottomBar
-  // },
   watch: {
     playType: function(val, oldVal) {
       // console.log(val, oldVal)
       var reg = new RegExp(oldVal, "ig");
       this.courseInfo.ONLINE_URL.replace(reg, val);
-      console.log(this.courseInfo.ONLINE_URL)
+      // console.log(this.courseInfo.ONLINE_URL)
     }
   },
   methods: {
     ...mapMutations(["GET_NETWORKTYPE"]),
     ...mapActions(["saveCourseInfo"]),
+    linkToExam () {
+      if (parseInt(this.courseInfo.currentProgress) < 100) {
+        Toast({
+          message: '请先看完课程内容',
+          position: 'bottom',
+          duration: 5000
+        })
+      } else if (parseInt(this.courseInfo.currentProgress) == 100) {
+        this.$router.push({ path: '/exam', query: { id: this.examId, type: 'course' } })
+      }
+    },
     togglePlayer(val) {
       this.playType = val;
     },
@@ -223,7 +228,7 @@ export default {
       let data = await GetIsAllowLearn({ UserID: this.userInfo.UserID });
       if (data.result === "false") {
         MessageBox.alert(`${data.resultMessage}`).then(action => {
-          // this.goBack()
+          // this.goBack(
         });
       }
       this.getCourseDetail(this.playFunc);
@@ -273,6 +278,7 @@ export default {
         CourseId: this.courseId,
         Page: this.page
       });
+      console.log(data)
       Indicator.close();
       if (data.Type == 1) {
         let list = data.Data.List;
@@ -296,7 +302,10 @@ export default {
         UserID: this.userInfo.UserID,
         CourseNumber: this.courseInfo.Course_Number
       });
+      this.examId = data.UserStudyInfoList[0].ExamId
+      this.courseRealId = data.UserStudyInfoList[0].CourseId;
       this.lastLocation = data.UserStudyInfoList[0].LastLocation;
+      console.log(this.lastLocation)
       this.browseScore = data.UserStudyInfoList[0].CurrentProgress;
       if (this.courseInfo.ONLINE_URL == "") {
         Toast({ message: "没有视频资源", position: "bottom" });
@@ -322,15 +331,16 @@ export default {
     //提交进度
     async updateProgress() {
       let TimeNode = timeFormat(this.myPlayer.currentTime);
-      let duration = Math.ceil(this.myPlayer.duration / 60);
       let params = {
         UserID: this.userInfo.UserID,
         CourseNumber: this.courseInfo.Course_Number,
-        TimeNode,
-        TotalTime: duration
+        TimeNode
       };
       let store = getStore("singleProgress") || {};
       try {
+        if (!params.TimeNode) { // 检测本次视频不放进度如果没有 取消提交
+          return false
+        }
         let data = await singleUploadTimeNode(params);
         // let res = data.split(",");
         if (data.result) {
@@ -375,6 +385,11 @@ export default {
           try {
             let params = this.progressStack[i];
             // console.log(params)
+            if (!params.TimeNode) {
+              this.progressStack.splice(i, 1);
+              console.log(this.progressStack)
+              continue;
+            }
             let res = await singleUploadTimeNode(params);
             if (res == "ok") {
               this.progressStack.splice(i, 1);
@@ -389,6 +404,9 @@ export default {
                   // this.$router.push({ path: '/courseCenter' })
                 }
               );
+            }
+            if (i == this.progressStack.length - 1) {
+              setStore('singleProgress', this.progressStack)
             }
           } catch (e) {
             this.myPlayer.pause();
@@ -660,7 +678,23 @@ export default {
   .course_notes {
     padding-bottom: toRem(100px);
   }
-
+  .course_examBtn {
+    height: toRem(100px);
+    padding: 0 toRem(30px);
+    display: flex;
+    align-items: center;
+    background: #fff;
+    .course_exambtn{
+      width: toRem(350px);
+      height: toRem(70px);
+      line-height: toRem(70px);
+      border-radius: toRem(5px);
+      text-align: center;
+      background: $brand-primary;
+      font-size: toRem(28px);
+      color: #fff;
+    }
+  }
   .mint-navbar {
     border-bottom: 1px solid $border-color-base;
 

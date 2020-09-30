@@ -5,11 +5,11 @@
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <!--<router-link slot="right" to="/examSearch"><i class="webapp webapp-search"></i></router-link>-->
     </header-fix>
-    <div class="exam_header">
+    <!-- <div class="exam_header">
       <i class="webapp webapp-time" style="color: #00aeff"></i>
-      <span>倒计时：{{timeLimit | formatTime}}</span>
-      <!-- <span v-else>倒计时：不限时</span> -->
-    </div>
+      <span>倒计时：{{timeLimit}}</span>
+      <span v-else>倒计时：不限时</span>
+    </div> -->
     <div class="exam_content" v-for="(list,index) in exam" :key="index">
       <transition name="slide-left">
         <div v-if="itemNum == index + 1">
@@ -20,7 +20,7 @@
             <span class="red" v-else-if="list.ThemeType==4">【简答题】</span>
             <span class="red" v-else>【其它】</span>
             <span class="topic_name">{{index + 1 + '.' + list.ThemeTitle}}</span>
-            <span class="red">({{Math.round(Number(list.ThemeScore))}}分)</span>
+            <span class="red" v-if="examType != 'heart'">({{Math.round(Number(list.ThemeScore))}}分)</span>
           </p>
           <div class="exam_list">
             <div v-if="list.ThemeType == 0">
@@ -60,25 +60,38 @@
       closeOnClickModal="false"
     >
       <div class="rule_modal">
-        <h4>测试须知</h4>
-        <p>您好！</p>
-        <p>欢迎您参加太仓市领导干部政治理论应知应会知识测试！</p>
-        <p class="title">一、测试试题</p>
-        <p>1.测试试题由单选题、多选题、判断题三种题型组成。</p>
-        <p>2.每套试卷由系统随机选题后自动生成，共设置10题，每题10分，满分100分，合格分60分。</p>
-        <p>3. 内容主要为习近平新时代中国特色社会主义思想和党的十九大精神、治国理政重要论述、党建工作基本知识、省情市情等领导干部应知应会的知识要点。</p>
-        <p class="title">二、测试规则</p>
-        <p>1.使用账号名登录 “干部在线学习中心”手机端即能参加在线测试，每人每月必须参加一次在线测试并达到合格分。</p>
-        <p>2.试卷生成后，点击“开始答题”即开始计时计分，每题答题时间为两分钟，时间到则自动进入下一题。</p>
-        <p>3.答题完毕后，即刻生成测试成绩。</p>
-        <p>4.单次测试成绩未达60分的，需再次进入测试页面重新答题，系统将记录单次最高得分。
-          <!--当月未参加测试的，将无法点击在线课程的学习。-->
-        </p>
+        <div v-show="examId == 2074 || examId == 2452">
+          <h4>测试须知</h4>
+          <p>您好！</p>
+          <p>欢迎您参加焦虑自评量表测试！</p>
+          <p>焦虑症是在无明显原因下发生发作性紧张、莫名恐惧与不安，常伴有自主神经系统功能的异常，是一种较常见的情绪障碍。此表是咨询门诊中了解焦虑症状的常用量表，让你了解自己的焦虑程度。</p>
+          <p>请根据您最近一周的实际情况，选择对应的选项。</p>
+        </div>
+        <div v-show="examId == 2076 || examId == 2454">
+          <h4>测试须知</h4>
+          <p>您好！</p>
+          <p>欢迎您参加症状自评量表测试(SCL-90)！</p>
+          <p>此表为当前使用最为广泛的精神障碍和心理疾病门诊检查量表，它对有心理症状的人有良好的区分能力，将协助您从十个方面来了解自己的心理健康程度。</p>
+          <p>请根据最近一星期的状况进行填写，适用16岁以上的用户。</p>
+        </div>
+        <div v-show="examId == 2077 || examId == 2455">
+          <h4>测试须知</h4>
+          <p>您好！</p>
+          <p>欢迎您参加匹兹堡睡眠质量指数测试!</p>
+          <p>睡眠对人类来说必不可少。不合格的睡眠质量，将影响个体的认知和情绪。该量表适用于睡眠障碍患者、精神障碍患者评价睡眠质量，同时也适用于一般人睡眠质量的评估。</p>
+          <p>快来测测你的睡眠质量吧！</p>
+        </div>
+        <div v-show="examId == 2075 || examId == 2453">
+          <h4>测试须知</h4>
+          <p>您好！</p>
+          <p>欢迎您参加抑郁自评量表测试！</p>
+          <p>抑郁自评量表是一种测量抑郁的工具，适用于具有抑郁症状的成年人，可以评定抑郁症状的轻重程度及其在治疗中的变化，特别适用于发现抑郁症病人。</p>
+          <p>请选择一处安静的环境，结合您最近两周的情形，选择最符合情况的选项。</p>
+        </div>
         <!-- <p>5.未尽事宜如需咨询，可联系服务热线0571-28990788-8006。</p> -->
         <br>
-        <!--<p class="group">苏州市干部教育工作领导小组办公室</p>-->
         <div class="btn-group">
-          <mt-button type="primary" size="small" @click="agreeToExam">开始答题</mt-button>
+          <mt-button type="primary" size="small" @click="agreeToExam" v-text="examType == 'heart' ? '在线测评' : '开始答题'"></mt-button>
         </div>
         <mt-button class="go-back" type="default" size="small" @click="disagree">返回</mt-button>
       </div>
@@ -89,7 +102,7 @@
 import { Button, MessageBox, Popup, Toast } from "mint-ui";
 import Vue from "vue";
 import { mapState } from "vuex";
-import { GetExamAPI2, UpdateUserExamAPI2 } from "../service/getData";
+import { GetExamAPI2, UpdateUserExamAPI2, GetExamTest, UpdateUserExam_YY, UpdateUserExam_Sleep } from "../service/getData";
 import { goBack } from "../service/mixins";
 
 Vue.component(Button.name, Button);
@@ -119,7 +132,9 @@ export default {
       itemNum: 1, //第几题
       allItem: 0,
       choosedItem: [],
-      startDate: "" //考试开始时间
+      // startDate: "", //考试开始时间
+      examType: this.$route.query.type, // normal: 普通考试; heart: 心理考试;
+      typeWay: this.$route.query.typeWay
     };
   },
   created() {
@@ -128,7 +143,10 @@ export default {
     this.rewardInfo = this.$route.query.rewardInfo;
   },
   mounted() {
-    this.getExam();
+    this.getExam()
+    if (this.examType != 'heart') {
+      this.agreeToExam()
+    }
   },
   props: [],
   computed: {
@@ -136,16 +154,26 @@ export default {
   },
   methods: {
     agreeToExam() {
-      this.startDate = new Date();
+      // this.startDate = new Date();
       this.popupVisible = false;
-      this.countDown();
+      // this.countDown();
     },
     disagree() {
-      this.$router.push({ path: '/examCenter' });
+      if (this.examType == 'heart') {
+        this.$router.push({ path: 'examHeartList' })
+      } else if (this.examType == 'normal') {
+        this.$router.push({ path: '/examCenter' })
+      }
     },
     async getExam() {
-      let data = await GetExamAPI2({ examId: this.examId });
+      let data = ''
+      if (this.examType === 'normal' || this.examType === 'course') {
+        data = await GetExamAPI2({ examId: this.examId });
+      } else if (this.examType === 'heart') {
+        data = await GetExamTest({ examId: this.examId })
+      }
       this.exam = [];
+      console.log(data)
       if (typeof data === "string") {
         Toast({ message: "服务器异常，请刷新页面", position: "bottom" });
         return;
@@ -153,10 +181,43 @@ export default {
       if (Array.isArray(data.ThemeString)) {
         this.exam = data.ThemeString;
       }
+      if (this.examId == '2077' || this.examId == '2455') {
+        let arr = [
+          {
+            ThemeID: "",
+            ThemeTitle: "近1个月，晚上上床睡觉通常 ____点钟。（请填写19-24,1-3阿拉伯整数数字）",
+            ThemeType: 4,
+            ThemeScore: "0"
+          },
+          {
+            ThemeID: "",
+            ThemeTitle: "近1个月，从上床到入睡通常需要____分钟。（请填写阿拉伯整数数字）",
+            ThemeType: 4,
+            ThemeScore: "0"
+          },
+          {
+            ThemeID: "",
+            ThemeTitle: "近1个月，通常早上____点起床。（请填写4-12阿拉伯整数数字）",
+            ThemeType: 4,
+            ThemeScore: "0"
+          },
+          {
+            ThemeID: "",
+            ThemeTitle: "近1个月，每夜通常实际睡眠_____小时。（请填写阿拉伯整数数字）",
+            ThemeType: 4,
+            ThemeScore: "0"
+          }
+        ]
+        this.exam = [...arr, ...this.exam]
+        this.allItem = parseInt(data.totalCount) + 4;
+        this.itemData = this.exam[0]
+      } else {
+        this.allItem = data.totalCount;
+        this.itemData = data.ThemeString[0];
+      }
       this.examTitle = data.ExamTitle;
       //this.timeLimit = data.Time_Limit * 60
-      this.allItem = data.totalCount;
-      this.itemData = data.ThemeString[0];
+      
       //初始化choosedItem
       this.initChoosedItem(this.exam);
     },
@@ -190,6 +251,28 @@ export default {
     },
     //点击下一题
     nextItem() {
+      if ((this.examId == '2077' || this.examId == '2455') && this.itemNum < 5) {
+        let str = /^\d+$/;
+        if (!str.test(this.choosedItem[this.itemNum - 1].Content)) {
+          Toast({ message: "请根据题意填写正确的格式", position: "bottom", duration: 1500 });
+          return
+        }
+      }
+      if ((this.examId == '2077' || this.examId == '2455') && this.itemNum == 1) {
+        if (this.choosedItem[this.itemNum - 1].Content > 24 || this.choosedItem[this.itemNum - 1].Content < 1) {
+          Toast({ message: "请根据题意填写正确的格式", position: "bottom", duration: 1500 });
+          return
+        }
+        if (this.choosedItem[this.itemNum - 1].Content < 19 && this.choosedItem[this.itemNum - 1].Content > 3) {
+          Toast({ message: "请根据题意填写正确的格式", position: "bottom", duration: 1500 });
+          return
+        }
+      } else if ((this.examId == '2077' || this.examId == '2455') && this.itemNum == 3) {
+        if (this.choosedItem[this.itemNum - 1].Content > 12 || this.choosedItem[this.itemNum - 1].Content < 4) {
+          Toast({ message: "请根据题意填写正确的格式", position: "bottom", duration: 1500 });
+          return
+        }
+      }
       if (this.itemData.ThemeType == 0 || this.itemData.ThemeType == 1) {
         let Answer = this.choosedItem[this.itemNum - 1].Answer;
         if (typeof Answer === "string" && Answer) {
@@ -209,7 +292,7 @@ export default {
           return;
         }
       }
-      Toast({ message: "请选择选项", position: "bottom", duration: 1500 });
+      Toast({ message: "输入答案或选择选项", position: "bottom", duration: 1500 });
     },
     //时间到跳下一题
     goToNextItem() {
@@ -234,29 +317,78 @@ export default {
     // },
     async upDateExam() {
       let t = this;
+      let data = ''
+      let strData = ''
+      let inputs = [] // 睡眠测试前四题答案
       let params = t.changeSendData(t.choosedItem);
-      let strData = params.reduce((str, item, index) => {
-        if (Array.isArray(item.Answer)) {
-          item.Answer = item.Answer.sort().join("");
+      if (this.examId == '2077' || this.examId == '2455') {
+        let fillBlanks = params.slice(0,4)
+        let params2 = params.slice(4,18)
+        
+        fillBlanks.forEach(item => {
+            inputs.push(item.Content)
+        })
+        inputs = inputs.join(",")
+        strData = params2.reduce((str, item, index) => {
+            if (Array.isArray(item.Answer)) {
+              item.Answer = item.Answer.sort().join("");
+            }
+            str += `${index > 0 ? "♂" : ""}${item.QuestionId}△${item.Answer}`;
+            return str;
+        }, "");
+      } else {
+        strData = params.reduce((str, item, index) => {
+            if (Array.isArray(item.Answer)) {
+              item.Answer = item.Answer.sort().join("");
+            }
+            str += `${index > 0 ? "♂" : ""}${item.QuestionId}△${item.Answer}`;
+            return str;
+        }, "");
+      }
+      
+      if (this.examType === 'heart') {
+        if (this.examId === '2077' || this.examId == '2455') {
+          let msg = {
+            Date: new Date(),
+            examId: t.examId,
+            UserID: this.userInfo.UserID,
+            Data1: inputs,
+            Data: strData
+          }
+          console.log(msg)
+          data = await UpdateUserExam_Sleep(msg)
+        } else {
+          data = await UpdateUserExam_YY({
+            Date: new Date(),
+            examId: t.examId,
+            UserID: this.userInfo.UserID,
+            Data: strData
+          })
         }
-        str += `${index > 0 ? "♂" : ""}${item.QuestionId}△${item.Answer}`;
-        return str;
-      }, "");
-      let data = await UpdateUserExamAPI2({
-        Date: new Date(),
-        examId: t.examId,
-        UserID: this.userInfo.UserID,
-        Data: strData
-      });
+      } else {
+        data = await UpdateUserExamAPI2({
+          Date: new Date(),
+          examId: t.examId,
+          UserID: this.userInfo.UserID,
+          Data: strData
+        });
+      }
 
       // let endDate = new Date()
       // let usedTime = endDate - t.startDate
       // let queryData = {...data, TotalCount: this.allItem, ...{usedTime}, ...{examId: t.examId}}
       if (data) {
-        t.$router.push({
-          path: "/examResult",
-          query: { examPaperId: data.examPaperID, examId: t.examId }
-        });
+        if (this.examType == 'normal' || this.examType == 'course') {
+          t.$router.push({
+            path: "/examResult",
+            query: { examPaperId: data.examPaperID, examId: t.examId, typeWay: this.typeWay }
+          });
+        } else if (this.examType == 'heart') {
+          t.$router.push({
+            path: '/examHeartResult',
+            query: { result: JSON.stringify(data), examId: t.examId, examType: 'heart' }
+          })
+        }
       }
       /*} else if (data.Type != 401) {
           MessageBox('警告', data.Message)
@@ -264,7 +396,7 @@ export default {
     },
     //提交考试
     submitExam() {
-      MessageBox.alert("确定提交试卷?").then(() => {
+      MessageBox.alert("确定提交?").then(() => {
         this.upDateExam();
       });
     },
@@ -319,9 +451,9 @@ export default {
   watch: {
     itemNum: function(val) {
       this.itemData = this.exam[val - 1];
-      clearInterval(this.limitTimer);
-      this.timeLimit = 120;
-      this.countDown();
+      // clearInterval(this.limitTimer);
+      // this.timeLimit = 120;
+      // this.countDown();
     }
   },
   beforeRouteLeave(to, from, next) {
@@ -360,12 +492,14 @@ export default {
       padding: toRem(30px) 0 toRem(100px) 0;
 
       .red {
+        font-size: toRem(37px);
         color: $brand-primary;
       }
     }
 
     .topic_name {
       line-height: toRem(50px);
+      font-size: toRem(37px);
     }
 
     .exam_list {
@@ -431,6 +565,7 @@ export default {
         text-align: center;
         color: #e93627;
         font-weight: 600;
+        margin-bottom: 0.8rem;
       }
 
       .title {
@@ -446,6 +581,7 @@ export default {
       p {
         line-height: toRem(36px);
         font-size: 0.36rem;
+        text-indent: 0.7rem;
       }
 
       .group,
@@ -458,7 +594,7 @@ export default {
       }
 
       .btn-group {
-        margin-top: 0.8rem;
+        margin-top: 6rem;
         // background: #FFF;
         // padding-bottom: toRem(20px);
         width: 100%;

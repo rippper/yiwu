@@ -9,6 +9,8 @@ const Error = r => require.ensure([], () => r(require('../page/error.vue')),
   'error');
 const CourseCenter = r => require.ensure([],
   () => r(require('../page/courseCenter.vue')), 'courseCenter');
+const CourseType = r => require.ensure([],
+  () => r(require('../page/courseType.vue')), 'courseType');
 const CourseSearch = r => require.ensure([],
   () => r(require('../page/courseSearch.vue')), 'courseSearch');
 const ExamCenter = r => require.ensure([],
@@ -83,6 +85,11 @@ const Notification = r => require.ensure([], () => r(require('../page/notificati
   'notification');
 const OpenApp = r => require.ensure([], () => r(require('../page/openApp.vue')),
   'openApp');
+const ExamHeartList = r => require.ensure([], () => r(require('../page/examHeartList.vue')),
+  'examHeartList')
+const ExamHeartResult = r => require.ensure([], () => r(require('../page/examHeartResult.vue')), 'examHeartResult')
+const ExamHResultList = r => require.ensure([], () => r(require('../page/examHResultList.vue')), 'examHResultList')
+const ExamHHistoryList = r => require.ensure([], () => r(require('../page/examHHistoryList.vue')), 'examHHistoryList')
 const MyCollect = r => require.ensure([],
   () => r(require('../page/myCollect.vue')), 'myCollect');
 const LearningPortfolio = r => require.ensure([],
@@ -115,6 +122,14 @@ const UserRaceRank = r => require.ensure([],
   () => r(require('../page/userRaceRank.vue')), 'userRaceRank');
 const ExamGuide = r => require.ensure([],
   () => r(require('../page/examGuide.vue')), 'examGuide');
+const LiveList = r => require.ensure([], () => r(require('../page/liveList.vue')), 'liveList');
+const LiveDetail = r => require.ensure([], () => r(require('../page/liveDetail.vue')), 'livedetail');
+const CommitList = r => require.ensure([], () => r(require('../page/commitList.vue')), 'commitList');
+const SelfArticleContent = r => require.ensure([], () => r(require('../page/selfArticleContent.vue')), 'selfArticleContent')
+const TrainList = r => require.ensure([], () => r(require('../page/trainList.vue')), 'trainList');
+const TrainContent = r => require.ensure([], () => r(require('../page/trainContent.vue')), 'trainContent');
+const TrainCourseList = r => require.ensure([], () => r(require('../page/trainCourseList.vue')), 'trainCourseList');
+const TrainExamList = r => require.ensure([], () => r(require('../page/trainExamList.vue')), 'trainExamList');
 const routes = [{
     path: '/',
     component: App,
@@ -152,6 +167,15 @@ const routes = [{
           title: '课程中心'
         },
       },
+      //课程种类
+      {
+        name: 'courseType',
+        path: '/courseType',
+        component: CourseType,
+        meta: {
+          title: '课程中心'
+        }
+      },
       //课程搜索
       {
         name: 'courseSearch',
@@ -160,6 +184,33 @@ const routes = [{
         meta: {
           title: '课程搜索'
         },
+      },
+      // 心理测试列表
+      {
+        name: 'examHeartList',
+        path: '/examHeartList',
+        component: ExamHeartList,
+        meta: {
+          title: '心理测试列表'
+        }
+      },
+      // 心理测试结果列表
+      {
+        name: 'examHResultList',
+        path: '/examHResultList',
+        component: ExamHResultList,
+        meta: {
+          title: '心理测验量表'
+        }
+      },
+      // 心理测试历史列表
+      {
+        name: 'examHHistoryList',
+        path: '/examHHistoryList',
+        component: ExamHHistoryList,
+        meta: {
+          title: '历史记录'
+        }
       },
       //在线测试
       {
@@ -187,6 +238,15 @@ const routes = [{
         meta: {
           title: '测试结果'
         },
+      },
+      // 心理测试结果
+      {
+        name: 'examHeartResult',
+        path: '/examHeartResult',
+        component: ExamHeartResult,
+        meta: {
+          title: '心理测试结果'
+        }
       },
       //搜索考试
       {
@@ -626,6 +686,78 @@ const routes = [{
         component: ExamGuide,
         meta: {
           title: '考试中心'
+        }
+      },
+      // 直播列表
+      {
+        name: 'liveList',
+        path: '/liveList',
+        component: LiveList,
+        meta: {
+          title: '直播列表'
+        }
+      },
+      // 直播详情
+      {
+        name: 'liveDetail',
+        path: '/liveDetail',
+        component: LiveDetail,
+        meta: {
+          title: '直播详情'
+        }
+      },
+      // 交流园地 列表
+      {
+        name: 'commitList',
+        path: '/commitList',
+        component: CommitList,
+        meta: {
+          title: '交流园地'
+        }
+      },
+      // 交流园地 原创文章详情页
+      {
+        name: 'selfArticleContent',
+        path: '/selfArticleContent',
+        component: SelfArticleContent,
+        meta: {
+          title: '原创文章详情'
+        }
+      },
+      // 培训班列表
+      {
+        name: 'trainList',
+        path: '/trainList',
+        component: TrainList,
+        meta: {
+          title: '培训班列表'
+        }
+      },
+      // 培训班详情
+      {
+        name: 'trainContent',
+        path: '/trainContent',
+        component: TrainContent,
+        meta: {
+          title: '培训班详情'
+        }
+      },
+      // 培训班课程列表
+      {
+        name: 'trainCourseList',
+        path: '/trainCourseList',
+        component: TrainCourseList,
+        meta: {
+          title: '课程列表'
+        }
+      },
+      // 培训班考试列表
+      {
+        name: 'trainExamList',
+        path: '/trainExamList',
+        component: TrainExamList,
+        meta: {
+          title: '考试列表'
         }
       },
       //error

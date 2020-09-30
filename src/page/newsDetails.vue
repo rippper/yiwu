@@ -4,7 +4,7 @@
 <template>
   <div class="article_container">
     <!--头部-->
-    <header-fix title="文章详情" fixed>
+    <header-fix :title="articleType == 'heart' ? '心理热线' : '文章详情'" fixed>
       <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
       <!--<span slot="right" class="read_count">{{articleDetails.ClickCount}}阅读</span>-->
     </header-fix>
@@ -58,7 +58,7 @@
         </div>
       </transition>
     </div>
-    <div v-if="iframeSrc">
+    <div class="news_content" v-if="iframeSrc">
       <iframe :src="iframeSrc" frameborder="0"></iframe>
     </div>
     <!-- <bottom-bar></bottom-bar> -->
@@ -77,7 +77,6 @@ import {
 // import { bottomBar } from '../components'
 // ArticleDetail,
 //  import { getWXUrl } from '../plugins/utils'
-
 export default {
   mixins: [goBack],
   data() {
@@ -94,7 +93,8 @@ export default {
         IsCollection: 0
       },
       showShare: false,
-      link: window.location.href
+      link: window.location.href,
+      articleType: this.$route.query.type || ''
     };
   },
   created() {
@@ -102,6 +102,9 @@ export default {
     this.iframeSrc = this.$route.query.ref || "";
   },
   mounted() {
+    if (this.articleType == 'heart') {
+      document.title = '心理热线'
+    }
     // this.getArticleDetail()
     // this.getWechatWxAuthModel()
   },
@@ -262,6 +265,10 @@ export default {
     background-color: #fff;
     color: $brand-primary;
     font-size: 12px;
+  }
+  .news_content{
+    width: 100%;
+    max-width: 10rem;
   }
   iframe {
     width: 100%;

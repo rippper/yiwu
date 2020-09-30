@@ -67,13 +67,6 @@ export const GetChannelInfoList = (data) => fetch.post(Api.GetChannelInfoList.ur
 });
 
 /**
- * 获取评论
- */
-export const GetCommentList = (data) => fetch.get(Api.GetCommentList.url, { ...Api.GetCommentList.data,
-  ...data
-});
-
-/**
  * 考试分类
  */
 export const GetExamType = (data) => fetch.post(Api.GetExamType.url, { ...Api.GetExamType.data,
@@ -193,13 +186,6 @@ export const GetTrainingTypeList = (data) => fetch.post(Api.GetTrainingTypeList.
  *  培训班列表 JoinStatus => Join：参加； UnJoin：未参加 ；UnAudit：审核中；
  */
 export const GetTrainingClass = (data) => fetch.post(Api.GetTrainingClass.url, { ...Api.GetTrainingClass.data,
-  ...data
-});
-
-/**
- *  培训班详情
- */
-export const GetTrainingDetail = (data) => fetch.post(Api.GetTrainingDetail.url, { ...Api.GetTrainingDetail.data,
   ...data
 });
 
@@ -351,20 +337,6 @@ export const getCourseCommentList = (data) => fetch.post(Api.getCourseCommentLis
 });
 
 /**
- *  添加课程评论
- */
-export const AddCourseComment = (data) => fetch.post(Api.AddCourseComment.url, { ...Api.AddCourseComment.data,
-  ...data
-});
-
-/**
- *  添加评论 objType 0：文章、1：课程、2：电子书、3：学习圈
- */
-export const AddComment = (data) => fetch.post(Api.AddComment.url, { ...Api.AddComment.data,
-  ...data
-});
-
-/**
  *  提交精品课程进度
  */
 export const SyncUserStudyData = (data) => fetch.post(Api.SyncUserStudyData.url, { ...Api.SyncUserStudyData.data,
@@ -374,7 +346,7 @@ export const SyncUserStudyData = (data) => fetch.post(Api.SyncUserStudyData.url,
 /**
  *  提交Mp4课程进度
  */
-export const UploadTimeNode = (data) => fetch.get(Api.UploadTimeNode.url, { ...Api.UploadTimeNode.data,
+export const UploadTimeNode = (data) => fetch.post(Api.UploadTimeNode.url, { ...Api.UploadTimeNode.data,
   ...data
 });
 
@@ -670,6 +642,20 @@ export const GetRaceList = (data) => fetch.post(Api.GetRaceList.url, {
   ...Api.GetRaceList.data,
   ...data
 });
+/*
+ * 心理测试列表
+ */
+export const GetExamListTest = (data) => fetch.post(Api.GetExamListTest.url, {
+  ...Api.GetExamListTest.data,
+  ...data
+})
+/*
+ * 心理测试试题
+ */
+export const GetExamTest = (data) => fetch.post(Api.GetExamTest.url, {
+  ...Api.GetExamTest.data,
+  ...data
+})
 /**
  *  考试试题
  */
@@ -679,13 +665,21 @@ export const GetExamAPI2 = (data) => fetch.post(Api.GetExam.url, { ...Api.GetExa
 /**
  *  错题列表
  */
-export const GetExamWrongTheme = (data) => fetch.get(Api.GetExamWrongTheme.url, { ...Api.GetExamWrongTheme.data, ...data });
+export const GetExamWrongTheme = (data) => fetch.post(Api.GetExamWrongTheme.url, { ...Api.GetExamWrongTheme.data, ...data });
 /**
  *  考试提交
  */
 export const UpdateUserExamAPI2 = (data) => fetch.post(Api.UpdateUserExam.url, { ...Api.UpdateUserExam.data,
   ...data
 });
+/*
+ * 心理测试抑郁
+ */
+export const UpdateUserExam_YY = (data) => fetch.post(Api.UpdateUserExam_YY.url, { ...Api.UpdateUserExam_YY.data, ...data })
+/*
+ * 心理测试睡眠质量测试结果提交
+ */
+export const UpdateUserExam_Sleep = (data) => fetch.post(Api.UpdateUserExam_Sleep.url, { ...Api.UpdateUserExam_Sleep.data, ...data })
 /**
  * 首页，检查是否领取奖励
  */
@@ -708,7 +702,7 @@ export const UpdateRewardPhone = (data) => fetch.post(Api.UpdateRewardPhone.url,
 /**
  * 获取用户测试信息
  */
-export const GetUserRaceInfo = (data) => fetch.post(Api.GetUserRaceInfo.url, { ...Api.GetUserRaceInfo.data,
+export const GetUserRaceInfo = (data) => fetch.get(Api.GetUserRaceInfo.url, { ...Api.GetUserRaceInfo.data,
   ...data
 });
 /**
@@ -732,6 +726,97 @@ export const GetUserExamHistory = (data) => fetch.post(Api.GetUserExamHistory.ur
   ...Api.GetUserExamHistory.data,
   ...data
 });
+/**
+ * 获取心理测试历史纪录
+ */
+export const GetUserTestHistory = (data) => fetch.post(Api.GetUserTestHistory.url, {
+  ...Api.GetUserTestHistory.data,
+  ...data
+})
+/**
+ * 获取用户心理考试结果
+ */
+export const GetExamTheme = (data) => fetch.post(Api.GetExamTheme.url, {
+  ...Api.GetExamTheme.data,
+  ...data
+})
+/**
+ *  添加课程评论
+ */
+export const AddComment = (data) => fetch.post(Api.AddCourseComment.url, { ...Api.AddCourseComment.data,
+  ...data
+})
+/**
+ * 直播用户限制
+ */
+export const CheckCanWatchByLiveId = (data) => fetch.post(Api.CheckCanWatchByLiveId.url, {...Api.CheckCanWatchByLiveId.data, ...data})
+/**
+ *  获取直播列表
+ */
+export const LiveTelecastList = (data) => fetch.post(Api.LiveTelecastList.url, { ...Api.LiveTelecastList.data, ...data })
+/**
+ * 获取评论
+ */
+export const GetCommentList = (data) => fetch.post(Api.GetCommentList.url, { ...Api.GetCommentList.data,
+  ...data
+})
+/**
+ * 交流园地 原创文章
+ */
+export const GetYCComment = (data) => fetch.post(Api.GetYCComment.url, { ...Api.GetYCComment.data, ...data })
+/**
+ * 交流园地 学习评论
+ */
+export const GetCommnetList = (data) => fetch.post(Api.GetCommnetList.url, { ...Api.GetCommnetList.data, ...data })
+/**
+ * 培训班 培训班列表
+ */
+export const getTrainningClassList = (data) => fetch.post(Api.getTrainningClassList.url, {
+  ...Api.getTrainningClassList.data,
+  ...data
+})
+/**
+ * 培训班 培训班详情
+ */
+export const GetTrainingDetail = (data) => fetch.post(Api.GetTrainingDetail.url, {
+  ...Api.GetTrainingDetail.data,
+  ...data
+})
+/**
+ * 培训班 报名
+ */
+export const SignUp = (data) => fetch.post(Api.SignUp.url, {
+  ...Api.SignUp.data,
+  ...data
+})
+/**
+ * 培训班 取消报名
+ */
+export const SignOff = (data) => fetch.post(Api.SignOff.url, {
+  ...Api.SignOff.data,
+  ...data
+})
+/**
+ * 培训班 培训班课程列表 
+ */
+export const GetTrainningClassCourseList = (data) => fetch.post(Api.GetTrainningClassCourseList.url, {
+  ...Api.GetTrainningClassCourseList.data,
+  ...data
+})
+/**
+ * 培训班 培训班考试列表
+ */
+export const GetTrainningClasExamList = (data) => fetch.post(Api.GetTrainningClasExamList.url, {
+  ...Api.GetTrainningClasExamList.data,
+  ...data
+})
+/**
+ * 培训班 培训班检查考试是否可考
+ */
+export const CheckCanTrainingExam = (data) => fetch.post(Api.CheckCanTrainingExam.url, {
+  ...Api.CheckCanTrainingExam.data,
+  ...data
+})
 export const GetIsAllowLearn = (data) => fetch.post(Api.GetIsAllowLearn.url, {
   ...Api.GetIsAllowLearn.data,
   ...data

@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <mt-button size="small" @click.stop="linkToHistory(item.ExamID)">历史测试记录</mt-button>
+      <mt-button size="small" @click.stop="linkToHistory(item.ExamID)" v-if="item.type === 'normal'">历史测试记录</mt-button>
       <!-- <mt-button size="small" v-if="item.Reward == 0" @click.stop="getReward(item)">已申请奖励</mt-button>
       <mt-button size="small" v-else-if="item.Reward == 1" @click.stop="showReward(item)">奖励已发</mt-button>
       <mt-button type="primary"
@@ -43,8 +43,8 @@
 </template>
 <script>
   import { mapState } from 'vuex'
-  import { MessageBox, Toast } from 'mint-ui'
-  import { UpdateExamReward, CanExam } from "../service/getData";
+  import { MessageBox } from 'mint-ui'
+  import { CanExam } from "../service/getData";
 
   export default {
     data () {
@@ -57,6 +57,10 @@
     },
     props: {
       examData: Array,
+      examType: {
+        type: String,
+        default: 'normal'
+      },
       noDataBg: {
         type: Boolean,
         default: false
@@ -75,17 +79,21 @@
         // let endTime = item.END_DATE
         // let dateEnd = +new Date(endTime)
         // let dateNow = +new Date()
-        let msg = await CanExam({
-          method: 'CanExam',
-          ExamID: id,
-          userid: this.userInfo.UserID
-        })
-        if (msg.result === 'false') {
-          MessageBox('提示', '课程未完成，请先完成课程。')
-        } else {
-          MessageBox.confirm(`是否进入测试`).then(action => {
-            this.$router.push({path: '/exam', query: {id}})
+        if (item.type === 'normal') {
+          let msg = await CanExam({
+            method: 'CanExam',
+            ExamID: id,
+            userid: this.userInfo.UserID
           })
+          if (msg.result === 'false') {
+            MessageBox('提示', '课程未完成，请先完成课程。')
+          } else {
+            MessageBox.confirm(`是否进入测试`).then(action => {
+              this.$router.push({path: '/exam', query: { id: id, type: item.type, typeWay: this.examType }})
+            })
+          }
+        } else if (item.type === 'heart') {
+          this.$router.push({path: '/exam', query: { id: id, type: item.type, typeWay: this.examType }})
         }
 
           // if (dateNow < dateEnd) {
@@ -103,32 +111,32 @@
           //   Toast({message: this.message, position: 'bottom'})
           // }
       },
-      async getReward (item) {
-        let phoneNum = item.userMobileNum
-        let rewardInfo = item.RewardInfo
-        MessageBox.prompt(`<p>奖励：${rewardInfo}</p><p>请确认是否为该手机充值，如果不是，请修改手机号。</p>`,"提示",
-          {inputValue: phoneNum, showInput: true, inputPlaceholder: "请输入手机号"})
-          .then(async ({value, action}) => {
-            phoneNum = value
-            if (!/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(phoneNum)) {
-              Toast({message: "手机号格式错误！", position: 'bottom'})
-              return;
-            }
-            let data = await UpdateExamReward({
-              UserID: this.userInfo.UserID,
-              examId: item.ExamID,
-              mobileNum: phoneNum
-            })
-            MessageBox({ title: "提示", message: data.result }).then(() => {
-              this.$emit("refreshExamList")
-            })
-          })
-      },
-      showReward (item) {
-        let phoneNum = item.userMobileNum
-        let rewardInfo = item.RewardInfo
-        MessageBox.alert(`<p>手机号：${phoneNum}</p><p>奖励：${rewardInfo}</p>`, "奖励信息")
-      },
+      // async getReward (item) {
+      //   let phoneNum = item.userMobileNum
+      //   let rewardInfo = item.RewardInfo
+      //   MessageBox.prompt(`<p>奖励：${rewardInfo}</p><p>请确认是否为该手机充值，如果不是，请修改手机号。</p>`,"提示",
+      //     {inputValue: phoneNum, showInput: true, inputPlaceholder: "请输入手机号"})
+      //     .then(async ({value, action}) => {
+      //       phoneNum = value
+      //       if (!/^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/.test(phoneNum)) {
+      //         Toast({message: "手机号格式错误！", position: 'bottom'})
+      //         return;
+      //       }
+      //       let data = await UpdateExamReward({
+      //         UserID: this.userInfo.UserID,
+      //         examId: item.ExamID,
+      //         mobileNum: phoneNum
+      //       })
+      //       MessageBox({ title: "提示", message: data.result }).then(() => {
+      //         this.$emit("refreshExamList")
+      //       })
+      //     })
+      // },
+      // showReward (item) {
+      //   let phoneNum = item.userMobileNum
+      //   let rewardInfo = item.RewardInfo
+      //   MessageBox.alert(`<p>手机号：${phoneNum}</p><p>奖励：${rewardInfo}</p>`, "奖励信息")
+      // },
       linkToHistory (examId) {
         this.$router.push({path: '/raceHistory',query: {examId}})
       }
@@ -165,7 +173,7 @@
     }
     .exam_name {
       @include ellipsis_two(2);
-      font-size: 14px;
+      font-size: toRem(40px);
       font-weight: 500;
       color: $color-text-base;
     }

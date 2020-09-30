@@ -3,12 +3,8 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path');
-// const target = 'http://test10.jy365.net';
-// const target = 'http://192.168.1.27:8002/'
-// const target = 'http://122.226.76.27:80/';
-const target = 'http://gbjy.yw.gov.cn';
-// const target = 'http://www.tcstudy.gov.cn';
-// const target = 'http://192.168.1.22:4000';
+const target = 'http://192.168.1.27:8002/'
+// const target = 'http://gbjy.yw.gov.cn';
 
 module.exports = {
   dev: {

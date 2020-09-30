@@ -8,7 +8,7 @@ import { getStore } from '../plugins/utils'
 
 let timeLimit = true
 // axios.defaults.baseURL = 'http://122.225.101.119:8989'
-axios.defaults.timeout = 10000
+axios.defaults.timeout = 15000
 axios.defaults.withCredentials = false
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 //拦截器

@@ -5,30 +5,29 @@
   <div class="evaluate">
     <div class="course_judge_tag" @click="openEvaluateModel">
       <p class="title">评价该课程</p>
-      <p class="judge">
+      <!-- <p class="judge">
         <star v-model="commentCredit" disabled></star>
-      </p>
+      </p> -->
     </div>
     <div class="split"></div>
     <div class="course_comment">
       <h1>评价详情 <span class="course_comment_count">（{{commentCount}}个评价）</span></h1>
-      <!--<section v-infinite-scroll="getCommentList"
+      <section v-infinite-scroll="getCommentList"
                infinite-scroll-immediate-check="immediate"
                infinite-scroll-disabled="loading"
                infinite-scroll-distance="10">
-        <div class="course_comment_item" v-for="(item,index) in commentList" :key="item.CommentId">
-          <div class="left_avatar"><img src="../assets/male.png" alt=""/></div>
+        <div class="course_comment_item" v-for="(item) in commentList" :key="item.CommentId">
+          <div class="left_avatar"><img src="../assets/male.png" alt></div>
           <div class="right_content">
             <p class="name">
-              <span>{{item.UserName}}</span>
-              <star v-model="item.Star" size="small" disabled></star>
+              <span>{{item.username}}</span>
             </p>
             <p class="date">{{item.Createtime}}</p>
-            <p class="content">{{item.CommentComtent}}</p>
+            <p class="content">{{item.content}}</p>
           </div>
         </div>
-      </section>-->
-      <div class="course_comment_item" v-for="(item) in commentList" :key="item.CommentId">
+      </section>
+      <!-- <div class="course_comment_item" v-for="(item) in commentList" :key="item.CommentId">
         <div class="left_avatar">
           <error-img :src="item.HeadImg" :error-src="male"></error-img>
         </div>
@@ -40,13 +39,14 @@
           <p class="date">{{item.Createtime}}</p>
           <p class="content">{{item.CommentComtent}}</p>
         </div>
-      </div>
+      </div> -->
     </div>
     <!--添加评论-->
     <mb-model :is-show.sync="isShowModel">
       <div slot class="addEvaluate">
-        <star v-model="addCourseData.Star" show-text></star>
-        <textarea v-model="addCourseData.Content" type="text" placeholder="评论，100以内"></textarea>
+        <p>请输入您对课程的评论。</p>
+        <!-- <star v-model="addCourseData.Star" show-text></star> -->
+        <textarea v-model="addCourseData.Content" type="text" placeholder="评论，300以内"></textarea>
         <a @click.prevent="addComment" class="submit">提交</a>
       </div>
     </mb-model>
@@ -56,6 +56,7 @@
   import Vue from 'vue'
   import { Toast, MessageBox, InfiniteScroll } from 'mint-ui'
   import { GetCommentList, AddComment } from '../service/getData'
+  import { mapState } from 'vuex'
   import male from '../assets/male.png'
 
   Vue.use(InfiniteScroll)
@@ -67,7 +68,7 @@
         noData: false,
         immediate: false,
         loading: false,
-        page: 1,
+        page: 0,
         commentList: [],
         commentCount: [],
         addCourseData: {
@@ -78,47 +79,70 @@
         }
       }
     },
-    props: ['courseId', 'commentCredit'],
-    created () {
-      this.getCommentList()
+    props: ['courseId', 'commentCredit', 'courseDetails'],
+    computed: {
+      ...mapState(['userInfo'])
+    },
+    mounted () {
+      console.log(this.courseDetails.currentProgress)
     },
     methods: {
       //课程评论列表
       async getCommentList () {
         this.noData = false
         this.loading = true
-        let data = await GetCommentList({objType: 1, objId: this.courseId})
-        if (data.Type == 1) {
-          let list = data.Data
-          this.commentCount = data.Data.length
-          if (list.length == 0) {
-            this.noData = true
-            return
-          }
-          this.commentList = list
-          this.loading = false
-          this.page += 1
+        let data = await GetCommentList({
+          courseid: this.courseId,
+          page: this.page,
+          pagesize: 10
+        })
+        console.log(data)
+        let list = data.list
+        this.commentCount = data.count.count
+        if (list.length == 0) {
+          this.noData = true
+          return
         }
+        this.commentList = list
+        this.loading = false
+        this.page += 1
       },
       //添加课程评论
       async addComment () {
-        if (this.addCourseData.Content.length > 0 && this.addCourseData.Content.length <= 100) {
-          let data = await AddComment(this.addCourseData)
-          if (data.Type == 1) {
+        if (parseInt(this.courseDetails.currentProgress) < 100) {
+          MessageBox('提示', '看完课程才能评论！')
+          return
+        }
+        if (this.addCourseData.Content.length > 0 && this.addCourseData.Content.length <= 300) {
+          this.addCourseData.Content = this.addCourseData.Content.replace(/(^\s*)|(\s*$)/g, "");
+          this.addCourseData.Content = this.addCourseData.Content.replace(/"/g, '\'');
+          let data = await AddComment({
+            userid: this.userInfo.UserID,
+            courseid: this.courseId,
+            data: this.addCourseData.Content
+          })
+          console.log(data)
+          if (data.result == '提交成功！') {
+            this.page = 0
             this.getCommentList()
-            Toast({message: data.Message, position: 'bottom'})
+            Toast({message: data.result, position: 'bottom'})
           } else if (data.Type != 401) {
             MessageBox('警告', data.Message)
           }
           this.isShowModel = false
         } else {
-          Toast({message: '评论内容不能超过100字！', position: 'bottom'})
+          Toast({message: '评论内容不能超过300字！', position: 'bottom'})
         }
       },
       openEvaluateModel () {
         this.isShowModel = true
       }
     },
+    watch: {
+      courseId (val) {
+        this.getCommentList()
+      }
+    }
   }
 </script>
 

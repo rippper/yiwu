@@ -30,6 +30,8 @@
   .header {
     @include flex();
     align-items: center;
+    max-width: 10rem;
+    margin: 0 auto;
     @include ht-lineHt(92px);
     background-color: $brand-primary;
     text-align: center;

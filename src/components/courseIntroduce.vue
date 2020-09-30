@@ -16,9 +16,9 @@
     <div class="course_detail_list">
       <div class="detail_item">
         <!--<p class="detail_item_left"><span class="label">课程分类：</span>{{courseDetails.ChannelName}}</p>-->
-        <p class="detail_item_left"><span  class="label">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分：</span>{{courseDetails.Credit_hour}}</p>
+        <p class="detail_item_left"><span  class="label">学&nbsp;&nbsp;分：</span>{{courseDetails.Credit_hour}}</p>
         <p class="detail_item_right"><span
-          class="label">进&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;度：</span>{{courseDetails.currentProgress}}</p>
+          class="label">进&nbsp;&nbsp;度：</span>{{courseDetails.currentProgress}}</p>
       </div>
       <!--<div class="detail_item">
         &lt;!&ndash;<p class="detail_item_left"><span

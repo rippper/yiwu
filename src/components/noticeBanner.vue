@@ -44,13 +44,14 @@ export default {
         bannerMove () {
             this.$refs.bannerBody.style.transition = ''
             this.$refs.bannerBody.style.top = '0'
+            this.bannerIndex = 0
             this.bannerStart()
         },
         bannerStart () {
-            this.bannerIndex = 0
             setTimeout(() => {
                 this.$refs.bannerBody.style.transition = '0.5s';
                 this.$refs.bannerBody.style.top = -(68 / 75) + 'rem'
+                this.bannerIndex = 1
             }, 30)
         },
         goArticleDetail (item) {
@@ -85,7 +86,7 @@ export default {
             }
         }
         .h_ct_nb_notice{
-            width: toRem(535px);
+            width: toRem(590px);
             height: toRem(68px);
             position: relative;
             overflow: hidden;
@@ -94,14 +95,10 @@ export default {
                 top: 0;
                 left: 0;
                 li{
-                    width: 100%;
+                    width: toRem(590px);
                     height: toRem(68px);
                     line-height: toRem(68px);
                     font-size: 0.35rem;
-                    @include ellipsis_two(1);
-                    a{
-                        font-weight: bold;
-                    }
                 }
             }
         }

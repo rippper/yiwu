@@ -38,11 +38,17 @@
       <mt-navbar v-model="selected">
         <mt-tab-item id="introduce">介绍</mt-tab-item>
         <mt-tab-item id="catalogue">目录</mt-tab-item>
+        <mt-tab-item id="evaluate">评价</mt-tab-item>
       </mt-navbar>
       <!-- tab-container -->
       <mt-tab-container v-model="selected">
         <mt-tab-container-item id="introduce">
           <course-introduce :course-details="courseInfo"></course-introduce>
+          <div class="course_examBtn">
+            <div class="course_exambtn" @click="linkToExam">
+              去考试
+            </div>
+          </div>
         </mt-tab-container-item>
         <mt-tab-container-item id="catalogue">
           <ul class="course_menu">
@@ -61,9 +67,13 @@
             </li>
           </ul>
         </mt-tab-container-item>
+        <mt-tab-container-item id="evaluate">
+          <course-comment :course-id="courseRealId" :comment-credit="courseDetails.CommentCredit" ref="courseComment" :course-details="courseInfo"></course-comment>
+        </mt-tab-container-item>
       </mt-tab-container>
     </div>
     <!--添加笔记-->
+    
     <transition name="slide-left">
       <add-notes
         class="notes_container container_top"
@@ -151,7 +161,8 @@ export default {
       timer: "", //定时器
       playType: "mp4",
       checkTimer: "", //检查登陆的定时器
-      progressStack: []
+      progressStack: [],
+      courseRealId: ''
     };
   },
   created() {
@@ -172,6 +183,17 @@ export default {
   },
   methods: {
     ...mapActions(["saveCourseInfo"]),
+    linkToExam () {
+      if (parseInt(this.courseInfo.currentProgress) < 100) {
+        Toast({
+          message: '请先看完课程内容',
+          position: 'bottom',
+          duration: 5000
+        })
+      } else if (this.courseInfo.currentProgress == 100) {
+        this.$router.push({ path: '/exam', query: { id: this.examId, type: 'course' } })
+      }
+    },
     togglePlayer(val) {
       this.updateProgress(
         this.activeNode.NodeID,
@@ -212,19 +234,20 @@ export default {
         UserID: this.userInfo.UserID,
         CourseNumber: this.courseInfo.Course_Number
       });
+      this.courseRealId = data.UserStudyInfoList[0].CourseId;
       this.uploadData = data;
       this.nodeList = data.UserStudyInfoList[0].NodeList;
-      this.nodeList.forEach((item, index) => {
-        item.Mp3 = item.Mp4.replace(/(\/mp4\/|\.mp4$)/gi, (match, capture) => {
-          if (match.indexOf("/") > -1) {
-            return "/mp3/";
-          }
-          if (match.indexOf(".") > -1) {
-            return ".mp3";
-          }
-        });
-        // .replace('http://221.224.13.70:8012/', 'http://www.szgx.suzhou.gov.cn');
-      });
+      // this.nodeList.forEach((item, index) => {
+      //   item.Mp3 = item.Mp4.replace(/(\/mp4\/|\.mp4$)/gi, (match, capture) => {
+      //     if (match.indexOf("/") > -1) {
+      //       return "/mp3/";
+      //     }
+      //     if (match.indexOf(".") > -1) {
+      //       return ".mp3";
+      //     }
+      //   });
+      //   replace('http://221.224.13.70:8012/', 'http://www.szgx.suzhou.gov.cn');
+      // });
       this.nodeLength = data.UserStudyInfoList[0].NodeList.length;
       this.activeNodeId = data.UserStudyInfoList[0].LastNodeID;
     },
@@ -615,7 +638,23 @@ export default {
       color: $brand-success;
     }
   }
-
+  .course_examBtn {
+    height: toRem(100px);
+    padding: 0 toRem(30px);
+    display: flex;
+    align-items: center;
+    background: #fff;
+    .course_exambtn{
+      width: toRem(350px);
+      height: toRem(70px);
+      line-height: toRem(70px);
+      border-radius: toRem(5px);
+      text-align: center;
+      background: $brand-primary;
+      font-size: toRem(28px);
+      color: #fff;
+    }
+  }
   .open_app {
     position: fixed;
     left: 0;

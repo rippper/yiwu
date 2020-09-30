@@ -14,9 +14,9 @@
             <span class="red" v-else-if="list.ThemeType==4">【简答题】</span>
             <span class="red" v-else>【其它】</span>
             <span class="topic_name">{{index + 1 + '.' + list.ThemeTitle}}</span>
-            <span class="red">({{Math.round(Number(list.ThemeScore))}}分)</span>
+            <span class="red" v-show="Type != 'heart'">({{Math.round(Number(list.ThemeScore))}}分)</span>
             <br/>
-            <span>正确答案： {{list.THEME_SOLUTION}}</span>
+            <span v-if="Type != 'heart'">正确答案： {{list.THEME_SOLUTION}}</span>
             <br>
             <span>您的答案： {{list.Answer=='N'?'':list.Answer}}</span>
           </p>
@@ -55,7 +55,7 @@
   import {Button, Popup} from 'mint-ui';
   import Vue from 'vue';
   import {mapState} from 'vuex';
-  import { GetExamWrongTheme } from '../service/getData';
+  import { GetExamWrongTheme, GetExamTheme } from '../service/getData';
 
   Vue.component(Button.name, Button);
   Vue.component(Popup.name, Popup);
@@ -64,8 +64,11 @@
       return {
         exam: [],
         examTitle: '',//标题
-        examId: '',
-        examPaperId: '',
+        examId: this.$route.query.examId || '',
+        examPaperId: this.$route.query.examPaperId || '',
+        Ticket: this.$route.query.Ticket || '',
+        Type: this.$route.query.Type || '',
+        fillResult: this.$route.query.fillResult || '',
         reward: '',
         itemData: null, //当前显示题目data
         transitionName: 'slide-left',
@@ -84,12 +87,12 @@
         startDate: ''//考试开始时间
       };
     },
-    created() {
-      this.examId = this.$route.query.examId;
-      this.examPaperId = this.$route.query.examPaperId;
-    },
     mounted() {
-      this.getExamWrongTheme();
+      if (this.Type == 'heart') {
+        this.GetExamTheme()
+      } else {
+        this.getExamWrongTheme();
+      }
     },
     props: [],
     computed: {
@@ -104,7 +107,7 @@
         this.$router.go(-1);
       },
       async getExamWrongTheme() {
-        console.log(this.examPaperId)
+        // console.log(this.examPaperId)
         let data = await GetExamWrongTheme({
           method: 'GetExamWrongTheme',
           examPaperId: this.examPaperId
@@ -115,6 +118,54 @@
         }
         this.examTitle = data.ExamTitle;
         this.allItem = data.totalCount;
+        this.itemData = data.ThemeString[0];
+      },
+      async GetExamTheme () {
+        let data = await GetExamTheme({
+          TicketId: this.Ticket,
+          examid: this.examId
+        })
+        this.exam = [];
+        if (Array.isArray(data.ThemeString)) {
+          this.allItem = data.totalCount;
+          if (this.examId == '2077' || this.examId == '2455') {
+            let arr = this.fillResult.split(",")
+            let test = [
+              {
+                ThemeTitle: '近1个月，晚上上床睡觉通常 ____点钟。（请填写19-24,1-3阿拉伯整数数字）',
+                ThemeScore: '1',
+                ThemeType: '4',
+                Answer: arr[0]
+              },
+              {
+                ThemeTitle: '近1个月，从上床到入睡通常需要____分钟。（请填写阿拉伯整数数字）',
+                ThemeScore: '1',
+                ThemeType: '4',
+                Answer: arr[1]
+              },
+              {
+                ThemeTitle: '近1个月，通常早上____点起床。（请填写4-12阿拉伯整数数字）',
+                ThemeScore: '1',
+                ThemeType: '4',
+                Answer: arr[2]
+              },
+              {
+                ThemeTitle: '近1个月，每夜通常实际睡眠_____小时。（请填写阿拉伯整数数字）',
+                ThemeScore: '1',
+                ThemeType: '4',
+                Answer: arr[3]
+              }
+            ]
+            data.ThemeString = [...test, ...data.ThemeString]
+            this.allItem = parseInt(data.totalCount) + 4;
+          }
+          // console.log(data.ThemeString)
+          data.ThemeString.forEach(item => {
+            item.THEME_SOLUTION = item.Answer
+          });
+          this.exam = data.ThemeString;
+        }
+        this.examTitle = data.ExamTitle;
         this.itemData = data.ThemeString[0];
       },
       //点击下一题
@@ -138,7 +189,7 @@
       },
       // 返回结果页
       goExamResult() {
-        this.$router.push({path: '/examResult', query: {examId: this.examId, examPaperId: this.examPaperId}});
+        this.$router.go(-1)
       }
     },
     beforeDestroy() {

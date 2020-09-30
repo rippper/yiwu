@@ -23,9 +23,9 @@
       <mt-cell title="我的学分" is-link to="/myCredit">
         <i slot="icon" class="webapp webapp-kecheng" style="color: #00ce6a;"></i>
       </mt-cell>
-      <!--<mt-cell title="我的收藏" is-link to="/myCollect">
-        <i slot="icon" class="webapp webapp-collect" style="color: #e95c2c;"></i>
-      </mt-cell>-->
+      <mt-cell title="我的心理测试" is-link to="/examHResultList">
+        <i slot="icon" class="webapp webapp-like-fill" style="color: #e95c2c;"></i>
+      </mt-cell>
       <mt-cell title="学习档案" is-link to="/learningPortfolio">
         <i slot="icon" class="webapp webapp-kecheng" style="color: #00ce6a;"></i>
       </mt-cell>
@@ -67,7 +67,7 @@
       <mt-button v-if="userAgent.weixin" @click.native="exit" type="primary" size="large">解除微信绑定</mt-button>
       <mt-button v-else @click.native="exit" type="primary" size="large">安全退出</mt-button>
     </div>
-    <bottomBar :selected="'4'"></bottomBar>
+    <bottomBar :selected="'6'"></bottomBar>
   </div>
 </template>
 <script>

@@ -62,7 +62,9 @@
         key: 'jy365jy365jy365y',
         iv: '0392039203920300',
         pwError: false,
-        acError: false
+        acError: false,
+        addressName: this.$route.query.name || '',
+        addressQuery: this.$route.query.query ? JSON.parse(this.$route.query.query) : ''
       };
     },
     created() {
@@ -99,7 +101,8 @@
         let Mac = getMac();
         let res = await CheckLoginStatus({UserID: this.userInfo.UserID, Mac});
         if (res == 1) {
-          this.$router.push('/home');
+          // this.$router.push('/home');
+          this.$router.go(-1)
         }
       },
       /*登陆*/
@@ -141,7 +144,17 @@
           /*if (this.userAgent.weixin) {
             window.location.href = this.wxIndexUrl
           } else {*/
-          this.$router.replace(this.backUrl);
+          console.log(this.addressName)
+          console.log(this.addressQuery)
+          if (this.addressName != '' && this.addressQuery != '') {
+            this.$router.push({ path: this.addressName, query: this.addressQuery })
+          } else if (this.addressName != '' && this.addressQuery == '') {
+            this.$router.push({ path: this.addressName })
+          } else {
+            this.$router.push({ path: '/home' })
+          }
+          // this.$router.go(-1)
+          // this.$router.replace(this.backUrl);
           // }
         } else if (res.Result == 2) {
           Toast({message: '密码错误！', position: 'bottom'});

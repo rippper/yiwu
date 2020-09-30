@@ -1,7 +1,7 @@
 <template>
   <div class="raceHistory container_both">
     <header-fix :title="title" fixed>
-      <i class="webapp webapp-back" @click.stop="goTestCenter" slot="left"></i>
+      <i class="webapp webapp-back" @click.stop="goBack" slot="left"></i>
     </header-fix>
     <ul class="container race-list" v-if="dataList.length">
       <li v-for="item in dataList" :key="item.toResult">
@@ -18,9 +18,11 @@
 
 <script>
   import { mapState } from 'vuex'
+  import { goBack } from "../service/mixins";
   import { GetUserExamHistory } from '../service/getData'
 
   export default {
+    mixins: [goBack],
     data() {
       return {
         title: '历史测试记录',

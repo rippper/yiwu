@@ -74,8 +74,9 @@
     },
     methods: {
       addCourse(item) {
+        console.log(item)
         let data = new Date(item.Course_CreateDate).getTime()
-        let limitdata = new Date('2020-01-01 00:00:00').getTime()
+        let limitdata = new Date('2020/01/01 00:00:00').getTime()
         if (limitdata > data) {
           MessageBox.alert('2020年之前的课程仅作为知识补充，完成后不再给予任何学分!', '提示').then(() => {
             this.$emit('addCourse', item)
@@ -86,6 +87,7 @@
       },
       async uploadProgress(e) {
         e.stopPropagation();
+        console.log(this.courseType)
         if (this.courseType == "jyzxnews") {
           for (let i = 0; i < this.progressStack.length; i++) {
             let params = this.progressStack[i]
@@ -111,8 +113,14 @@
           for (let i = 0; i < this.progressStack.length; i++) {
             let params = this.progressStack[i]
             try {
+              if (!params.TimeNode) {
+                this.progressStack.splice(i, 1);
+                console.log(this.progressStack)
+                continue;
+              }
               let data = await singleUploadTimeNode(params)
-              if (data.split(',')[0] == 'true') {
+              console.log(data)
+              if (data.result) {
                 this.progressStack.splice(i, 1)
               } else {
                 Toast({ message: "提交缓存进度失败", position: 'bottom' })
@@ -175,8 +183,8 @@
     }
     .course_name {
       @include ellipsis_two(2);
-      height: toRem(72px);
-      /*font-size: 14px;*/
+      height: toRem(60px);
+      font-size: toRem(24px);
       font-weight: 500;
       color: $color-text-base;
     }
